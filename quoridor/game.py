@@ -1,6 +1,6 @@
 import pygame
 from .board import Board
-from .constants import BLACK, WHITE, YELLOW, SQUARE_SIZE
+from .constants import BLACK, WHITE, YELLOW, SQUARE_SIZE, RED, WALL_THICKNESS
 
 class Game:
     def __init__(self, win):
@@ -9,6 +9,7 @@ class Game:
 
     def _init(self):
         self.selected = None
+        self.wall_hovered = None
         self.board = Board()
         self.turn = WHITE
         self.valid_moves = {}
@@ -17,6 +18,9 @@ class Game:
         self.board.draw(self.win)
         if self.selected:
             self.draw_valid_moves(self.valid_moves)
+        if self.wall_hovered and self.wall_hovered in self.board.get_valid_walls():
+            self.draw_hovered_wall(self.wall_hovered)
+            
         pygame.display.update()
 
     def reset(self):
@@ -61,3 +65,15 @@ class Game:
         for move in moves:
             row, col = move
             pygame.draw.circle(self.win, YELLOW, (col * SQUARE_SIZE + SQUARE_SIZE // 2, row * SQUARE_SIZE + SQUARE_SIZE // 2), 15)
+
+    def draw_hovered_wall(self, wall):
+        row, col, wall_type = wall
+ 
+        if wall_type == "horizontal":
+            start_pos = (col * SQUARE_SIZE + (WALL_THICKNESS // 2) + 1 , row * SQUARE_SIZE)
+            end_pos = ((col + 2) * SQUARE_SIZE - (WALL_THICKNESS // 2), row * SQUARE_SIZE)
+        else:
+            start_pos = (col * SQUARE_SIZE, (row - 1) * SQUARE_SIZE + (WALL_THICKNESS // 2) + 1)
+            end_pos = (col * SQUARE_SIZE, (row + 1) * SQUARE_SIZE - (WALL_THICKNESS // 2))
+        
+        pygame.draw.line(self.win, RED, start_pos, end_pos, WALL_THICKNESS)

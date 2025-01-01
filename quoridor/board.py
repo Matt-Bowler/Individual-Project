@@ -1,17 +1,36 @@
 import pygame
-from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE
+from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY
 from .piece import Piece
 
 class Board:
     def __init__(self):
         self.board = [[]]
+        self.horizontal_walls = set()
+        self.vertical_walls = set()
         self.create_board()
 
     def draw_squares(self, win):
-        win.fill(BROWN)
         for row in range(ROWS):
-            for col in range(row % 2, COLS, 2):
-                pygame.draw.rect(win, BAIGE, (row*SQUARE_SIZE, col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+            for col in range(COLS):
+                if(row + col) % 2 == 0:
+                    pygame.draw.rect(win, BROWN, (row*SQUARE_SIZE, col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+                else:
+                    pygame.draw.rect(win, BAIGE, (row*SQUARE_SIZE, col*SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
+
+    def draw_dividers(self, win):
+        for row in range(ROWS + 1): 
+            pygame.draw.line(win, GREY, (0, row * SQUARE_SIZE), (COLS * SQUARE_SIZE, row * SQUARE_SIZE), WALL_THICKNESS)
+        for col in range(COLS + 1):  
+            pygame.draw.line(win, GREY, (col * SQUARE_SIZE, 0), (col * SQUARE_SIZE, ROWS * SQUARE_SIZE), WALL_THICKNESS)
+    
+    def draw(self, win):
+        self.draw_squares(win)
+        self.draw_dividers(win)
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+                if piece:
+                    piece.draw(win)
 
     def move(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
@@ -29,13 +48,6 @@ class Board:
         self.board[0][COLS // 2] = Piece(0, COLS // 2, BLACK)
         self.board[ROWS - 1][COLS // 2] = Piece(ROWS - 1, COLS // 2, WHITE)
 
-    def draw(self, win):
-        self.draw_squares(win)
-        for row in range(ROWS):
-            for col in range(COLS):
-                piece = self.board[row][col]
-                if piece:
-                    piece.draw(win)
 
     def winner(self):
         for col in range(COLS):
@@ -49,6 +61,16 @@ class Board:
                 return BLACK
         
         return None
+    
+    def get_valid_walls(self):
+        walls = []
+        for row in range(ROWS):
+            for col in range(COLS):
+                if (row, col) not in self.horizontal_walls:
+                    walls.append((row, col, "horizontal"))
+                if (row, col) not in self.vertical_walls:
+                    walls.append((row, col, "vertical"))
+        return walls
 
     def get_valid_moves(self, piece):
         moves = {}
