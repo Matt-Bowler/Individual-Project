@@ -1,6 +1,9 @@
 import pygame
+
+from quoridor.wall import Wall
 from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY
 from .piece import Piece
+from .pathfinding import path_exists
 
 class Board:
     def __init__(self):
@@ -23,18 +26,35 @@ class Board:
         for col in range(COLS + 1):  
             pygame.draw.line(win, GREY, (col * SQUARE_SIZE, 0), (col * SQUARE_SIZE, ROWS * SQUARE_SIZE), WALL_THICKNESS)
     
+    def draw_walls(self, win):
+        for row, col in self.horizontal_walls:
+            start_pos = (col * SQUARE_SIZE + (WALL_THICKNESS // 2) + 1 , (row + 1) * SQUARE_SIZE)
+            end_pos = ((col + 2) * SQUARE_SIZE - (WALL_THICKNESS // 2), (row + 1) * SQUARE_SIZE)
+            pygame.draw.line(win, BLACK, start_pos, end_pos, WALL_THICKNESS)
+        for row, col in self.vertical_walls:
+            start_pos = (col * SQUARE_SIZE, (row - 1) * SQUARE_SIZE + (WALL_THICKNESS // 2) + 1)
+            end_pos = (col  * SQUARE_SIZE, (row + 1) * SQUARE_SIZE - (WALL_THICKNESS // 2))
+            pygame.draw.line(win, BLACK, start_pos, end_pos, WALL_THICKNESS)
+        
     def draw(self, win):
         self.draw_squares(win)
         self.draw_dividers(win)
+        self.draw_walls(win)
         for row in range(ROWS):
             for col in range(COLS):
                 piece = self.board[row][col]
                 if piece:
                     piece.draw(win)
 
-    def move(self, piece, row, col):
+    def move_piece(self, piece, row, col):
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col]
         piece.move(row, col)
+
+    def place_wall(self, wall):
+        if wall.orientation == "horizontal":
+            self.horizontal_walls.add((wall.row, wall.col))
+        else:
+            self.vertical_walls.add((wall.row, wall.col))
 
     def get_piece(self, row, col):
         return self.board[row][col]
@@ -62,18 +82,41 @@ class Board:
         
         return None
     
+    def is_valid_wall(self, wall):
+        if wall.orientation == "horizontal" and (wall.col >= COLS or wall.col + 1 >= COLS or wall.row >= ROWS - 1):
+            return False
+        elif wall.orientation == "vertical" and (wall.row <= 0 or wall.row - 1 < 0 or wall.col <= 0):
+            return False
+        return True
+    
     def get_valid_walls(self):
-        walls = []
+        walls = set()
         for row in range(ROWS):
             for col in range(COLS):
+                horizontal_wall = Wall(row, col, "horizontal")
+                vertical_wall = Wall(row, col, "vertical")
+                
+                # Check horizontal wall validity
                 if (row, col) not in self.horizontal_walls:
-                    walls.append((row, col, "horizontal"))
+                    if (row, col + 1) not in self.horizontal_walls and (row, col - 1) not in self.horizontal_walls:
+                        if (row + 1, col + 1) not in self.vertical_walls:
+                            self.horizontal_walls.add((row, col))
+                            if path_exists(self.board, self.horizontal_walls, self.vertical_walls) and self.is_valid_wall(horizontal_wall):
+                                walls.add(horizontal_wall)
+                            self.horizontal_walls.remove((row, col))
+                
+                # Check vertical wall validity
                 if (row, col) not in self.vertical_walls:
-                    walls.append((row, col, "vertical"))
+                    if (row + 1, col) not in self.vertical_walls and (row - 1, col) not in self.vertical_walls:
+                        if (row - 1, col - 1) not in self.horizontal_walls:
+                            self.vertical_walls.add((row, col))
+                            if path_exists(self.board, self.horizontal_walls, self.vertical_walls) and self.is_valid_wall(vertical_wall):
+                                walls.add(vertical_wall)
+                            self.vertical_walls.remove((row, col))
         return walls
 
     def get_valid_moves(self, piece):
-        moves = {}
+        moves = set()
         row = piece.row
         col = piece.col
         
@@ -87,7 +130,7 @@ class Board:
                     next_piece = self.get_piece(new_row, new_col)
                     
                     if next_piece == 0:  # Empty square
-                        moves[(new_row, new_col)] = []
+                        moves.add((new_row, new_col))
                     else:  # Square has opponent
                         jump_row = new_row + dx
                         jump_col = new_col + dy
@@ -96,19 +139,41 @@ class Board:
                         if (0 <= jump_row < ROWS and 0 <= jump_col < COLS and
                             not self.is_wall_between(new_row, new_col, jump_row, jump_col) and
                             self.get_piece(jump_row, jump_col) == 0):
-                            moves[(jump_row, jump_col)] = []
+                            moves.add((jump_row, jump_col))
+                        # Check diagonal moves if jump blocked
                         else:
-                            # Check diagonal moves if jump blocked
-                            diagonals = [(dx+1, dy), (dx-1, dy), (dx, dy+1), (dx, dy-1)]
+                            # Dont allow diagonal moves if original jump move was off the board,
+                            # implies wall is off the board which is not possible
+                            if jump_row < 0 or jump_row >= ROWS or jump_col < 0 or jump_col >= COLS:
+                                continue
+
+                            diagonals = [(0, 1), (0, -1), (1, 0), (-1, 0)]
                             for diag_dx, diag_dy in diagonals:
                                 diag_row = new_row + diag_dx
                                 diag_col = new_col + diag_dy
                                 if (0 <= diag_row < ROWS and 0 <= diag_col < COLS and
                                     not self.is_wall_between(new_row, new_col, diag_row, diag_col) and
                                     self.get_piece(diag_row, diag_col) == 0):
-                                    moves[(diag_row, diag_col)] = []
+                                    moves.add((diag_row, diag_col))
         
         return moves
 
     def is_wall_between(self, row1, col1, row2, col2):
+        # Move is horizontal
+        if row1 == row2:
+            # Move is to right
+            if col1 < col2:
+                return (row2, col2) in self.vertical_walls or (row2 + 1, col2) in self.vertical_walls
+            elif col1 > col2:
+                return (row1, col1) in self.vertical_walls or (row1 + 1, col1) in self.vertical_walls
+        # Move is vertical
+        elif col1 == col2:
+            # Move is downwards
+            if row1 < row2:
+                return (row1, col1) in self.horizontal_walls or (row1, col1 - 1) in self.horizontal_walls
+            # Move is upwards
+            elif row1 > row2:
+                return (row2, col2) in self.horizontal_walls or (row2, col2 - 1) in self.horizontal_walls
         return False
+
+
