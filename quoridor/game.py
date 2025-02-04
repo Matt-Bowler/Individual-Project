@@ -13,7 +13,6 @@ class Game:
         self.wall_hovered = None
         self.board = Board()
         self.turn = WHITE
-        self.black_walls = self.white_walls = 10
         self.valid_moves = set()
 
     def update(self):
@@ -61,18 +60,18 @@ class Game:
     
     def player_has_walls(self):
         if self.turn == BLACK:
-            return self.black_walls > 0
+            return self.board.black_walls > 0
         else:
-            return self.white_walls > 0
+            return self.board.white_walls > 0
 
     def place_wall(self, wall):
         if wall in self.board.get_valid_walls() and self.player_has_walls():
             self.board.place_wall(wall)
             if self.turn == BLACK:
-                self.black_walls -= 1
+                self.board.black_walls -= 1
             else:
-                self.white_walls -= 1
-            print(f"Wall placed: {str(wall)} {'Black' if self.turn == BLACK else 'White'} has {self.black_walls if self.turn == BLACK else self.white_walls} walls left")
+                self.board.white_walls -= 1
+            print(f"Wall placed: {str(wall)} {'Black' if self.turn == BLACK else 'White'} has {self.board.black_walls if self.turn == BLACK else self.board.white_walls} walls left")
             self.change_turn()
         else:
             print("Invalid wall placement")

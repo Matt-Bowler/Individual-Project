@@ -7,11 +7,14 @@ from .pathfinding import path_exists, shortest_path
 
 class Board:
     def __init__(self):
-        self.board = [[]]
+        self.board = []
         self.horizontal_walls = set()
         self.vertical_walls = set()
+        self.valid_walls = set()
+        self.black_walls = self.white_walls = 10
         self.create_board()
-
+        self.precompute_valid_walls()
+    
     def create_board(self):
         for row in range(ROWS):
             self.board.append([])
@@ -21,19 +24,15 @@ class Board:
         self.board[0][COLS // 2] = Piece(0, COLS // 2, BLACK)
         self.board[ROWS - 1][COLS // 2] = Piece(ROWS - 1, COLS // 2, WHITE)
 
-    def winner(self):
-        for col in range(COLS):
-            piece = self.board[0][col]
-            if piece != 0 and piece.color == WHITE:
-                return WHITE
-                
-        for col in range(COLS):
-            piece = self.board[ROWS-1][col]
-            if piece != 0 and piece.color == BLACK:
-                return BLACK
+    def precompute_valid_walls(self):
+        for row in range(ROWS - 2):
+            for col in range(COLS - 2):
+                self.valid_walls.add(Wall(row, col, "horizontal"))
         
-        return None
-
+        for row in range(1, ROWS - 1):
+            for col in range(1, COLS - 1):
+                self.valid_walls.add(Wall(row, col, "vertical"))
+        
     def draw_squares(self, win):
         for row in range(ROWS):
             for col in range(COLS):
@@ -88,6 +87,18 @@ class Board:
                 if piece != 0 and piece.color == color:
                     return piece
 
+    def winner(self):
+        for col in range(COLS):
+            piece = self.board[0][col]
+            if piece != 0 and piece.color == WHITE:
+                return WHITE
+                
+        for col in range(COLS):
+            piece = self.board[ROWS-1][col]
+            if piece != 0 and piece.color == BLACK:
+                return BLACK
+        
+        return None
     
     def is_valid_wall(self, wall):
         if wall.orientation == "horizontal" and (wall.col >= COLS or wall.col + 1 >= COLS or wall.row >= ROWS - 1):
@@ -136,9 +147,11 @@ class Board:
                 if not self.is_wall_between(row, col, new_row, new_col):
                     next_piece = self.get_piece(new_row, new_col)
                     
-                    if next_piece == 0:  # Empty square
+                    # Empty square
+                    if next_piece == 0:  
                         moves.add((new_row, new_col))
-                    else:  # Square has opponent
+                    # Square has opponent
+                    else:  
                         jump_row = new_row + dx
                         jump_col = new_col + dy
                         
@@ -162,7 +175,6 @@ class Board:
                                     not self.is_wall_between(new_row, new_col, diag_row, diag_col) and
                                     self.get_piece(diag_row, diag_col) == 0):
                                     moves.add((diag_row, diag_col))
-        
         return moves
 
     def is_wall_between(self, row1, col1, row2, col2):
@@ -183,18 +195,15 @@ class Board:
                 return (row2, col2) in self.horizontal_walls or (row2, col2 - 1) in self.horizontal_walls
         return False
 
-
-    def wall_effect(self, opponent):
-        pass
-    
-    def mobility(self, player):
-        pass
-
     def evaluate(self):
         white_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(WHITE))
         black_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(BLACK))
 
-        return len(black_shortest_path) - len(white_shortest_path)
+        black_wall_count = self.black_walls
+        white_wall_count = self.white_walls
+        wall_advantage = white_wall_count - black_wall_count
+
+        return len(black_shortest_path) - len(white_shortest_path) + (0.5 * wall_advantage)
 
     
     def __repr__(self):
@@ -208,5 +217,4 @@ class Board:
                 board_str += "\n"
             return board_str
 
-        
-        
+

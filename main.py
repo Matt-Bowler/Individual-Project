@@ -3,6 +3,7 @@ from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS,
 from quoridor.game import Game
 from quoridor.wall import Wall
 from quoridor.ai import minimax
+import time
 
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -62,9 +63,12 @@ def main():
     while run:
         clock.tick(FPS)
 
-        if game.turn == WHITE:
-            _, new_board = minimax(game.get_board(), 4, WHITE, game)
-            game.ai_move(new_board)
+        # if game.turn == WHITE:
+        #     start = time.time()
+        #     _, new_board = minimax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, game)
+        #     end = time.time()
+        #     print(f"Time taken: {end - start}")
+        #     game.ai_move(new_board)
 
         if game.winner() != None:
             print(f"Player {'Black' if game.winner() == BLACK else 'White'} wins!")

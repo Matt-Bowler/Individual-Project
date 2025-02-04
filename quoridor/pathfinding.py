@@ -70,7 +70,7 @@ def shortest_path(horizontal_walls, vertical_walls, piece):
 
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
 
-    finder = AStarFinder()
+    finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
 
     start = grid_obj.node(piece.col, piece.row)
     
