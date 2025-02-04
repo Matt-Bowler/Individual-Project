@@ -12,6 +12,28 @@ class Board:
         self.vertical_walls = set()
         self.create_board()
 
+    def create_board(self):
+        for row in range(ROWS):
+            self.board.append([])
+            for col in range(COLS):
+                self.board[row].append(0)
+
+        self.board[0][COLS // 2] = Piece(0, COLS // 2, BLACK)
+        self.board[ROWS - 1][COLS // 2] = Piece(ROWS - 1, COLS // 2, WHITE)
+
+    def winner(self):
+        for col in range(COLS):
+            piece = self.board[0][col]
+            if piece != 0 and piece.color == WHITE:
+                return WHITE
+                
+        for col in range(COLS):
+            piece = self.board[ROWS-1][col]
+            if piece != 0 and piece.color == BLACK:
+                return BLACK
+        
+        return None
+
     def draw_squares(self, win):
         for row in range(ROWS):
             for col in range(COLS):
@@ -59,28 +81,6 @@ class Board:
     def get_piece(self, row, col):
         return self.board[row][col]
 
-    def create_board(self):
-        for row in range(ROWS):
-            self.board.append([])
-            for col in range(COLS):
-                self.board[row].append(0)
-
-        self.board[0][COLS // 2] = Piece(0, COLS // 2, BLACK)
-        self.board[ROWS - 1][COLS // 2] = Piece(ROWS - 1, COLS // 2, WHITE)
-
-
-    def winner(self):
-        for col in range(COLS):
-            piece = self.board[0][col]
-            if piece != 0 and piece.color == WHITE:
-                return WHITE
-                
-        for col in range(COLS):
-            piece = self.board[ROWS-1][col]
-            if piece != 0 and piece.color == BLACK:
-                return BLACK
-        
-        return None
     
     def is_valid_wall(self, wall):
         if wall.orientation == "horizontal" and (wall.col >= COLS or wall.col + 1 >= COLS or wall.row >= ROWS - 1):
@@ -176,4 +176,18 @@ class Board:
                 return (row2, col2) in self.horizontal_walls or (row2, col2 - 1) in self.horizontal_walls
         return False
 
+    def evaluate(self):
+        white_score = 0
+        black_score = 0
 
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+            if piece != 0:
+                if piece.color == WHITE:
+                    white_score += (ROWS - row)
+                elif piece.color == BLACK:
+                    black_score += row
+
+        return black_score - white_score
+        

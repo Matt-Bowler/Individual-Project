@@ -13,19 +13,23 @@ class Game:
         self.wall_hovered = None
         self.board = Board()
         self.turn = WHITE
+        self.black_walls = self.white_walls = 10
         self.valid_moves = set()
 
     def update(self):
         self.board.draw(self.win)
         if self.selected_piece:
             self.draw_valid_moves()
-        if self.wall_hovered and self.wall_hovered in self.board.get_valid_walls():
+        if self.wall_hovered and self.wall_hovered in self.board.get_valid_walls() and self.player_has_walls():
             self.draw_hovered_wall()
             
         pygame.display.update()
 
     def reset(self):
         self._init()
+
+    def get_board(self):
+        return self.board
     
     def winner(self):
         return self.board.winner()
@@ -55,11 +59,21 @@ class Game:
         
         return True
     
+    def player_has_walls(self):
+        if self.turn == BLACK:
+            return self.black_walls > 0
+        else:
+            return self.white_walls > 0
+
     def place_wall(self, wall):
-        if wall in self.board.get_valid_walls():
+        if wall in self.board.get_valid_walls() and self.player_has_walls():
             self.board.place_wall(wall)
+            if self.turn == BLACK:
+                self.black_walls -= 1
+            else:
+                self.white_walls -= 1
+            print(f"Wall placed: {str(wall)} {'Black' if self.turn == BLACK else 'White'} has {self.black_walls if self.turn == BLACK else self.white_walls} walls left")
             self.change_turn()
-            print("Wall placed " + str(wall))
         else:
             print("Invalid wall placement")
             return False
@@ -89,3 +103,7 @@ class Game:
             end_pos = (wall.col * SQUARE_SIZE, (wall.row + 1) * SQUARE_SIZE - (WALL_THICKNESS // 2))
         
         pygame.draw.line(self.win, RED, start_pos, end_pos, WALL_THICKNESS)
+    
+    def ai_move(self, board):
+        self.board = board
+        self.change_turn()

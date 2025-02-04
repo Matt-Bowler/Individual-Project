@@ -1,7 +1,8 @@
 import pygame
-from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS, COLS
+from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS, COLS, BLACK, WHITE
 from quoridor.game import Game
 from quoridor.wall import Wall
+from quoridor.ai import minimax
 
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -62,7 +63,7 @@ def main():
         clock.tick(FPS)
 
         if game.winner() != None:
-            print(game.winner())
+            print(f"Player {'Black' if game.winner() == BLACK else 'White'} wins!")
             run = False
 
         for event in pygame.event.get():
