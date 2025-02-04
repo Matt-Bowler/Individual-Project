@@ -65,15 +65,27 @@ def path_exists(board, horizontal_walls, vertical_walls):
 
 
 
-def shortest_path(board, horizontal_walls, vertical_walls, piece):
+def shortest_path(horizontal_walls, vertical_walls, piece):
     grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
 
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
 
-    finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+    finder = AStarFinder()
 
     start = grid_obj.node(piece.col, piece.row)
-    #TODO: FINISH
+    
+    if piece.color == BLACK:
+        goals = [grid_obj.node(x, ROWS - 1) for x in range(COLS)]   
+    else:
+        goals = [grid_obj.node(x, 0) for x in range(COLS)]
+    
+    min_path = None
+    min_path_length = float('inf')
 
-    grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
+    for goal in goals:
+        path, _ = finder.find_path(start, goal, grid_obj)
+        if path and len(path) < min_path_length:
+            min_path = path
+            min_path_length = len(path)
 
+    return min_path

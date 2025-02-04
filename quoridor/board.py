@@ -3,7 +3,7 @@ import pygame
 from quoridor.wall import Wall
 from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY
 from .piece import Piece
-from .pathfinding import path_exists
+from .pathfinding import path_exists, shortest_path
 
 class Board:
     def __init__(self):
@@ -80,6 +80,13 @@ class Board:
 
     def get_piece(self, row, col):
         return self.board[row][col]
+    
+    def get_piece_by_color(self, color):
+        for row in range(ROWS):
+            for col in range(COLS):
+                piece = self.board[row][col]
+                if piece != 0 and piece.color == color:
+                    return piece
 
     
     def is_valid_wall(self, wall):
@@ -176,6 +183,30 @@ class Board:
                 return (row2, col2) in self.horizontal_walls or (row2, col2 - 1) in self.horizontal_walls
         return False
 
+
+    def wall_effect(self, opponent):
+        pass
+    
+    def mobility(self, player):
+        pass
+
     def evaluate(self):
-        return 1
+        white_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(WHITE))
+        black_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(BLACK))
+
+        return len(black_shortest_path) - len(white_shortest_path)
+
+    
+    def __repr__(self):
+            board_str = ""
+            for row in self.board:
+                for cell in row:
+                    if cell == 0:
+                        board_str += ". "
+                    else:
+                        board_str += "B " if cell.color == BLACK else "W "
+                board_str += "\n"
+            return board_str
+
+        
         
