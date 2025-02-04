@@ -3,7 +3,7 @@ from .constants import BLACK, WHITE, ROWS, COLS
 
 import pygame
 
-def minimax(board, depth, max_player, game):
+def minimax(board, depth, max_player, game):    
     if depth == 0 or board.winner() != None:
         return board.evaluate(), board
 
@@ -37,9 +37,10 @@ def get_all_moves(board, color, game):
         for col in range(COLS):
             piece = board.get_piece(row, col)
             if piece != 0 and piece.color == color:
-                valid_moves = game.valid_moves
+                valid_moves = board.get_valid_moves(piece)
                 for move in valid_moves:
                     temp_board = deepcopy(board)
-                    new_board = simulate_move(piece, move, temp_board)
+                    temp_piece = temp_board.get_piece(piece.row, piece.col)
+                    new_board = simulate_move(temp_piece, move, temp_board)
                     moves.append(new_board)
     return moves

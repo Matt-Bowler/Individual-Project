@@ -1,8 +1,36 @@
 from pathfinding.core.grid import Grid
 from pathfinding.finder.a_star import AStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
+
 from .constants import ROWS, COLS, BLACK, WHITE
 
+class QuoridorGrid(Grid):
+    def __init__(self, *args, horizontal_walls, vertical_walls, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.horizontal_walls = horizontal_walls
+        self.vertical_walls = vertical_walls 
+    
+    def neighbors(self, node, diagonal_movement=DiagonalMovement.never):
+        x, y = node.x, node.y
+        board_row, board_col = y , x
+
+        neighbors = []
+
+        # upwards neighbours 
+        if board_row > 0 and (board_row - 1, board_col) not in self.horizontal_walls and (board_row - 1, board_col - 1) not in self.horizontal_walls:
+            neighbors.append(self.node(x, y - 1))
+        # downwards neighbours
+        if board_row < self.height - 1 and (board_row, board_col) not in self.horizontal_walls and (board_row, board_col - 1) not in self.horizontal_walls:
+            neighbors.append(self.node(x, y + 1))
+        # left neighbours
+        if board_col > 0 and (board_row, board_col) not in self.vertical_walls and (board_row + 1, board_col) not in self.vertical_walls:
+            neighbors.append(self.node(x - 1, y))
+        # right neighbours
+        if board_col < self.width - 1 and (board_row, board_col + 1) not in self.vertical_walls and (board_row + 1,  board_col + 1) not in self.vertical_walls:
+            neighbors.append(self.node(x + 1, y))
+
+        return neighbors
+    
 
 def path_exists(board, horizontal_walls, vertical_walls):
     black_pos = None
@@ -17,30 +45,9 @@ def path_exists(board, horizontal_walls, vertical_walls):
                     black_pos = (row, col)
                 if piece.color == WHITE:
                     white_pos = (row, col)  
+    
 
-    class QuoridorGrid(Grid):
-        def neighbors(self, node, diagonal_movement=DiagonalMovement.never):
-            x, y = node.x, node.y
-            board_row, board_col = y , x
-
-            neighbors = []
-
-            # upwards neighbours 
-            if board_row > 0 and (board_row - 1, board_col) not in horizontal_walls and (board_row - 1, board_col - 1) not in horizontal_walls:
-                neighbors.append(self.node(x, y - 1))
-            # downwards neighbours
-            if board_row < self.height - 1 and (board_row, board_col) not in horizontal_walls and (board_row, board_col - 1) not in horizontal_walls:
-                neighbors.append(self.node(x, y + 1))
-            # left neighbours
-            if board_col > 0 and (board_row, board_col) not in vertical_walls and (board_row + 1, board_col) not in vertical_walls:
-                neighbors.append(self.node(x - 1, y))
-            # right neighbours
-            if board_col < self.width - 1 and (board_row, board_col + 1) not in vertical_walls and (board_row + 1,  board_col + 1) not in vertical_walls:
-                neighbors.append(self.node(x + 1, y))
-
-            return neighbors
-
-    grid_obj = QuoridorGrid(matrix=grid)
+    grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
 
     finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
 
@@ -55,3 +62,18 @@ def path_exists(board, horizontal_walls, vertical_walls):
     white_has_path = any(finder.find_path(white_start, goal, grid_obj)[0] for goal in white_goal_nodes)
 
     return black_has_path and white_has_path
+
+
+
+def shortest_path(board, horizontal_walls, vertical_walls, piece):
+    grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
+
+    grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
+
+    finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+
+    start = grid_obj.node(piece.col, piece.row)
+    #TODO: FINISH
+
+    grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
+

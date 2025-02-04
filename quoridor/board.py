@@ -177,17 +177,5 @@ class Board:
         return False
 
     def evaluate(self):
-        white_score = 0
-        black_score = 0
-
-        for row in range(ROWS):
-            for col in range(COLS):
-                piece = self.board[row][col]
-            if piece != 0:
-                if piece.color == WHITE:
-                    white_score += (ROWS - row)
-                elif piece.color == BLACK:
-                    black_score += row
-
-        return black_score - white_score
+        return 1
         
