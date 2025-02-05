@@ -63,12 +63,12 @@ def main():
     while run:
         clock.tick(FPS)
 
-        # if game.turn == WHITE:
-        #     start = time.time()
-        #     _, new_board = minimax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, game)
-        #     end = time.time()
-        #     print(f"Time taken: {end - start}")
-        #     game.ai_move(new_board)
+        if game.turn == WHITE:
+            start = time.time()
+            _, new_board = minimax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, game)
+            end = time.time()
+            print(f"Time taken: {end - start}")
+            game.ai_move(new_board)
 
         if game.winner() != None:
             print(f"Player {'Black' if game.winner() == BLACK else 'White'} wins!")

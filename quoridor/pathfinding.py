@@ -7,8 +7,8 @@ from .constants import ROWS, COLS, BLACK, WHITE
 class QuoridorGrid(Grid):
     def __init__(self, *args, horizontal_walls, vertical_walls, **kwargs):
         super().__init__(*args, **kwargs)
-        self.horizontal_walls = horizontal_walls
-        self.vertical_walls = vertical_walls 
+        self.horizontal_walls = set(horizontal_walls)
+        self.vertical_walls = set(vertical_walls) 
     
     def neighbors(self, node, diagonal_movement=DiagonalMovement.never):
         x, y = node.x, node.y
@@ -48,7 +48,6 @@ def path_exists(board, horizontal_walls, vertical_walls):
     
 
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
-
     finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
 
     black_start = grid_obj.node(black_pos[1], black_pos[0])
@@ -58,18 +57,20 @@ def path_exists(board, horizontal_walls, vertical_walls):
     white_goal_nodes = [grid_obj.node(x, 0) for x in range(COLS)]
 
     black_has_path = any(finder.find_path(black_start, goal, grid_obj)[0] for goal in black_goal_nodes)
+    if not black_has_path:
+        return False
 
     white_has_path = any(finder.find_path(white_start, goal, grid_obj)[0] for goal in white_goal_nodes)
+    if not white_has_path:
+        return False
 
-    return black_has_path and white_has_path
+    return True
 
 
 
 def shortest_path(horizontal_walls, vertical_walls, piece):
     grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
-
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
-
     finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
 
     start = grid_obj.node(piece.col, piece.row)
@@ -87,5 +88,6 @@ def shortest_path(horizontal_walls, vertical_walls, piece):
         if path and len(path) < min_path_length:
             min_path = path
             min_path_length = len(path)
+    
 
     return min_path

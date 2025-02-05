@@ -1,8 +1,6 @@
 from copy import deepcopy
 from .constants import BLACK, WHITE
 
-import pygame
-
 def minimax(board, depth, alpha, beta, max_player, game):    
     if depth == 0 or board.winner() != None:
         return board.evaluate(), board
@@ -62,6 +60,9 @@ def get_all_moves(board, color):
     
     valid_walls = board.get_valid_walls()
     for wall in valid_walls:
+        if not board.is_valid_wall(wall):
+            continue
+
         temp_board = deepcopy(board)
         new_board = simulate_wall(wall, temp_board, color)
         moves.append(new_board)

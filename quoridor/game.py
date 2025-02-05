@@ -19,7 +19,7 @@ class Game:
         self.board.draw(self.win)
         if self.selected_piece:
             self.draw_valid_moves()
-        if self.wall_hovered and self.wall_hovered in self.board.get_valid_walls() and self.player_has_walls():
+        if self.wall_hovered and self.board.is_valid_wall(self.wall_hovered) and self.player_has_walls():
             self.draw_hovered_wall()
             
         pygame.display.update()
@@ -65,7 +65,7 @@ class Game:
             return self.board.white_walls > 0
 
     def place_wall(self, wall):
-        if wall in self.board.get_valid_walls() and self.player_has_walls():
+        if self.board.is_valid_wall(wall) and self.player_has_walls():
             self.board.place_wall(wall)
             if self.turn == BLACK:
                 self.board.black_walls -= 1

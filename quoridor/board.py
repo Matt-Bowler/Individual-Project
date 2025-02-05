@@ -25,12 +25,12 @@ class Board:
         self.board[ROWS - 1][COLS // 2] = Piece(ROWS - 1, COLS // 2, WHITE)
 
     def precompute_valid_walls(self):
-        for row in range(ROWS - 2):
-            for col in range(COLS - 2):
+        for row in range(ROWS - 1):
+            for col in range(COLS - 1):
                 self.valid_walls.add(Wall(row, col, "horizontal"))
         
-        for row in range(1, ROWS - 1):
-            for col in range(1, COLS - 1):
+        for row in range(1, ROWS):
+            for col in range(1, COLS):
                 self.valid_walls.add(Wall(row, col, "vertical"))
         
     def draw_squares(self, win):
@@ -76,6 +76,20 @@ class Board:
             self.horizontal_walls.add((wall.row, wall.col))
         else:
             self.vertical_walls.add((wall.row, wall.col))
+        
+        self.remove_invalid_walls(wall)
+
+    def remove_invalid_walls(self, wall):
+        self.valid_walls.remove(wall)
+
+        if wall.orientation == "horizontal":
+            self.valid_walls.discard(Wall(wall.row, wall.col + 1, "horizontal"))
+            self.valid_walls.discard(Wall(wall.row, wall.col - 1, "horizontal"))
+            self.valid_walls.discard(Wall(wall.row + 1, wall.col + 1, "vertical"))
+        else:
+            self.valid_walls.discard(Wall(wall.row + 1, wall.col, "vertical"))
+            self.valid_walls.discard(Wall(wall.row - 1, wall.col, "vertical"))
+            self.valid_walls.discard(Wall(wall.row - 1, wall.col - 1, "horizontal"))
 
     def get_piece(self, row, col):
         return self.board[row][col]
@@ -101,37 +115,26 @@ class Board:
         return None
     
     def is_valid_wall(self, wall):
-        if wall.orientation == "horizontal" and (wall.col >= COLS or wall.col + 1 >= COLS or wall.row >= ROWS - 1):
+        if wall not in self.valid_walls:
             return False
-        elif wall.orientation == "vertical" and (wall.row <= 0 or wall.row - 1 < 0 or wall.col <= 0):
-            return False
+                
+        if wall.orientation == "horizontal":
+            self.horizontal_walls.add((wall.row, wall.col))
+            if not path_exists(self.board, self.horizontal_walls, self.vertical_walls):
+                self.horizontal_walls.remove((wall.row, wall.col))
+                return False
+            self.horizontal_walls.remove((wall.row, wall.col)) 
+        else:  
+            self.vertical_walls.add((wall.row, wall.col))
+            if not path_exists(self.board, self.horizontal_walls, self.vertical_walls):
+                self.vertical_walls.remove((wall.row, wall.col))
+                return False
+            self.vertical_walls.remove((wall.row, wall.col))
+       
         return True
     
     def get_valid_walls(self):
-        walls = set()
-        for row in range(ROWS):
-            for col in range(COLS):
-                horizontal_wall = Wall(row, col, "horizontal")
-                vertical_wall = Wall(row, col, "vertical")
-                
-                # Check horizontal wall validity
-                if (row, col) not in self.horizontal_walls:
-                    if (row, col + 1) not in self.horizontal_walls and (row, col - 1) not in self.horizontal_walls:
-                        if (row + 1, col + 1) not in self.vertical_walls:
-                            self.horizontal_walls.add((row, col))
-                            if path_exists(self.board, self.horizontal_walls, self.vertical_walls) and self.is_valid_wall(horizontal_wall):
-                                walls.add(horizontal_wall)
-                            self.horizontal_walls.remove((row, col))
-                
-                # Check vertical wall validity
-                if (row, col) not in self.vertical_walls:
-                    if (row + 1, col) not in self.vertical_walls and (row - 1, col) not in self.vertical_walls:
-                        if (row - 1, col - 1) not in self.horizontal_walls:
-                            self.vertical_walls.add((row, col))
-                            if path_exists(self.board, self.horizontal_walls, self.vertical_walls) and self.is_valid_wall(vertical_wall):
-                                walls.add(vertical_wall)
-                            self.vertical_walls.remove((row, col))
-        return walls
+        return self.valid_walls
 
     def get_valid_moves(self, piece):
         moves = set()
@@ -164,6 +167,7 @@ class Board:
                         else:
                             # Dont allow diagonal moves if original jump move was off the board,
                             # implies wall is off the board which is not possible
+
                             if jump_row < 0 or jump_row >= ROWS or jump_col < 0 or jump_col >= COLS:
                                 continue
 
@@ -198,13 +202,17 @@ class Board:
     def evaluate(self):
         white_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(WHITE))
         black_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(BLACK))
-
-        black_wall_count = self.black_walls
-        white_wall_count = self.white_walls
-        wall_advantage = white_wall_count - black_wall_count
-
-        return len(black_shortest_path) - len(white_shortest_path) + (0.5 * wall_advantage)
-
+        
+        white_walls = self.white_walls
+        black_walls = self.black_walls
+        
+    
+        evaluation = (
+            (len(black_shortest_path) - len(white_shortest_path)) * 10 +
+            (white_walls - black_walls)
+        )
+        
+        return evaluation
     
     def __repr__(self):
             board_str = ""
