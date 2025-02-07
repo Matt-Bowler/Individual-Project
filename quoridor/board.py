@@ -1,9 +1,10 @@
+import random
 import pygame
 
 from quoridor.wall import Wall
 from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY
 from .piece import Piece
-from .pathfinding import path_exists, shortest_path
+from .pathfinding import path_exists, get_cached_path
 
 class Board:
     def __init__(self):
@@ -199,20 +200,30 @@ class Board:
                 return (row2, col2) in self.horizontal_walls or (row2, col2 - 1) in self.horizontal_walls
         return False
 
-    def evaluate(self):
-        white_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(WHITE))
-        black_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, self.get_piece_by_color(BLACK))
+    def evaluate(self, color):
+        white_piece = self.get_piece_by_color(WHITE)
+        black_piece = self.get_piece_by_color(BLACK)
+
+        # Compute shortest paths
+        white_shortest_path = get_cached_path(self, white_piece, self.horizontal_walls, self.vertical_walls)
+        black_shortest_path = get_cached_path(self, black_piece, self.horizontal_walls, self.vertical_walls)
+
+        wall_bonus = ((self.white_walls - self.black_walls) * 2) if color == WHITE else ((self.black_walls - self.white_walls) * 2)
         
-        white_walls = self.white_walls
-        black_walls = self.black_walls
-        
-    
-        evaluation = (
-            (len(black_shortest_path) - len(white_shortest_path)) * 10 +
-            (white_walls - black_walls)
-        )
-        
-        return evaluation
+        blockade_bonus = 0
+        for wall in self.horizontal_walls | self.vertical_walls:
+            if abs(wall[0] - black_piece.row) <= 1 and abs(wall[1] - black_piece.col) <= 1:
+                blockade_bonus += 3 
+
+        black_forward_bonus = black_piece.row  
+        white_forward_penalty = (ROWS - white_piece.row)         
+
+        if color == WHITE:
+            return (8 * len(black_shortest_path)) - (8 * len(white_shortest_path)) + (2 * wall_bonus) + blockade_bonus + white_forward_penalty - black_forward_bonus
+        else:
+            return (8 * len(white_shortest_path)) - (8 * len(black_shortest_path)) + (2 * wall_bonus) + blockade_bonus + black_forward_bonus - white_forward_penalty
+
+
     
     def __repr__(self):
             board_str = ""
@@ -224,5 +235,11 @@ class Board:
                         board_str += "B " if cell.color == BLACK else "W "
                 board_str += "\n"
             return board_str
+    
+    def __hash__(self):
 
-
+        piece_positions = tuple((piece.row, piece.col) for piece in [self.get_piece_by_color(BLACK), self.get_piece_by_color(WHITE)]) 
+        walls = tuple(sorted(self.horizontal_walls)) + tuple(sorted(self.vertical_walls))  
+        
+        return hash((piece_positions, walls))
+        

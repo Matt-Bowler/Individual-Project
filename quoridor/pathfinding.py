@@ -1,8 +1,13 @@
 from pathfinding.core.grid import Grid
-from pathfinding.finder.a_star import AStarFinder
+from pathfinding.finder.bi_a_star import BiAStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
+from pathfinding.core.heuristic import euclidean
 
 from .constants import ROWS, COLS, BLACK, WHITE
+
+shortest_path_cache = {}
+piece_path_cache = {}
+grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
 
 class QuoridorGrid(Grid):
     def __init__(self, *args, horizontal_walls, vertical_walls, **kwargs):
@@ -35,7 +40,6 @@ class QuoridorGrid(Grid):
 def path_exists(board, horizontal_walls, vertical_walls):
     black_pos = None
     white_pos = None
-    grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
 
     for row in range(ROWS):
         for col in range(COLS):
@@ -48,7 +52,7 @@ def path_exists(board, horizontal_walls, vertical_walls):
     
 
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
-    finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+    finder = BiAStarFinder(diagonal_movement=DiagonalMovement.never)
 
     black_start = grid_obj.node(black_pos[1], black_pos[0])
     black_goal_nodes = [grid_obj.node(x, ROWS - 1) for x in range(COLS)]
@@ -56,22 +60,40 @@ def path_exists(board, horizontal_walls, vertical_walls):
     white_start = grid_obj.node(white_pos[1], white_pos[0])
     white_goal_nodes = [grid_obj.node(x, 0) for x in range(COLS)]
 
-    black_has_path = any(finder.find_path(black_start, goal, grid_obj)[0] for goal in black_goal_nodes)
-    if not black_has_path:
+    for goal in black_goal_nodes:
+        if finder.find_path(black_start, goal, grid_obj)[0]:
+            break
+    else:
         return False
 
-    white_has_path = any(finder.find_path(white_start, goal, grid_obj)[0] for goal in white_goal_nodes)
-    if not white_has_path:
-        return False
+    for goal in white_goal_nodes:
+        if finder.find_path(white_start, goal, grid_obj)[0]:
+            break
+    else:
+        return False 
 
     return True
 
+def get_cached_path(board, piece, horizontal_walls, vertical_walls):
+    board_key = (piece.row, piece.col, tuple(horizontal_walls), tuple(vertical_walls))
+    
+    if board_key in piece_path_cache:
+        return piece_path_cache[board_key]
+    
+    path = shortest_path(board, horizontal_walls, vertical_walls, piece)
+    
+    piece_path_cache[board_key] = path
+    
+    return path
 
-
-def shortest_path(horizontal_walls, vertical_walls, piece):
-    grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
+def shortest_path(board, horizontal_walls, vertical_walls, piece):
+    board_hash = hash(board)
+    
+    if board_hash in shortest_path_cache:
+        return shortest_path_cache[board_hash]
+    
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
-    finder = AStarFinder(diagonal_movement=DiagonalMovement.never)
+    finder = BiAStarFinder(diagonal_movement=DiagonalMovement.never)
 
     start = grid_obj.node(piece.col, piece.row)
     

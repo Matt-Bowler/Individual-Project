@@ -2,8 +2,10 @@ import pygame
 from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS, COLS, BLACK, WHITE
 from quoridor.game import Game
 from quoridor.wall import Wall
-from quoridor.ai import minimax
+from quoridor.ai import minimax, negamax
 import time
+
+import cProfile
 
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
@@ -65,8 +67,17 @@ def main():
 
         if game.turn == WHITE:
             start = time.time()
-            _, new_board = minimax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, game)
+            _, new_board = negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, game)
             end = time.time()
+
+            print(f"Time taken: {end - start}")
+            game.ai_move(new_board)
+        
+        if game.turn == BLACK:
+            start = time.time()
+            _, new_board = negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK, game)
+            end = time.time()
+
             print(f"Time taken: {end - start}")
             game.ai_move(new_board)
 
@@ -103,3 +114,8 @@ def main():
 if __name__ == "__main__":
     main()
 
+    # cProfile.run('main()', 'profile_output')
+
+    # import pstats
+    # profile = pstats.Stats('profile_output')
+    # profile.sort_stats('cumulative').print_stats()
