@@ -1,12 +1,9 @@
 from pathfinding.core.grid import Grid
 from pathfinding.finder.bi_a_star import BiAStarFinder
 from pathfinding.core.diagonal_movement import DiagonalMovement
-from pathfinding.core.heuristic import euclidean
 
 from .constants import ROWS, COLS, BLACK, WHITE
 
-shortest_path_cache = {}
-piece_path_cache = {}
 grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
 
 class QuoridorGrid(Grid):
@@ -75,23 +72,10 @@ def path_exists(board, horizontal_walls, vertical_walls):
     return True
 
 def get_cached_path(board, piece, horizontal_walls, vertical_walls):
-    board_key = (piece.row, piece.col, tuple(horizontal_walls), tuple(vertical_walls))
-    
-    if board_key in piece_path_cache:
-        return piece_path_cache[board_key]
-    
     path = shortest_path(board, horizontal_walls, vertical_walls, piece)
-    
-    piece_path_cache[board_key] = path
-    
     return path
 
 def shortest_path(board, horizontal_walls, vertical_walls, piece):
-    board_hash = hash(board)
-    
-    if board_hash in shortest_path_cache:
-        return shortest_path_cache[board_hash]
-    
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
     finder = BiAStarFinder(diagonal_movement=DiagonalMovement.never)
 
@@ -109,7 +93,6 @@ def shortest_path(board, horizontal_walls, vertical_walls, piece):
         path, _ = finder.find_path(start, goal, grid_obj)
         if path and len(path) < min_path_length:
             min_path = path
-            min_path_length = len(path)
-    
+            min_path_length = len(path)    
 
     return min_path

@@ -1,89 +1,80 @@
 from copy import deepcopy
+import numpy as np
 
 from quoridor.board import Board
-from quoridor.pathfinding import get_cached_path
-from quoridor.wall import Wall
 from .constants import BLACK, WHITE, ROWS, COLS
 
-evaluated_boards = {}
+ZOBRIST_PIECE_TABLE = np.random.randint(0, 2**64, size=(ROWS, COLS, 2), dtype=np.uint64)
+ZOBRIST_WALL_TABLE = np.random.randint(0, 2**64, size=(ROWS, COLS, 2), dtype=np.uint64)
+transposition_table = {} 
 
-def minimax(board, depth, alpha, beta, max_player, game):    
-    if depth == 0 or board.winner() is not None:
-        player_color = WHITE if max_player else BLACK
-        return board.evaluate(player_color), board
+def compute_zobrist_hash(board, color):
+    zobrist_hash = 0
 
-    board_hash = hash(board) 
-    if board_hash in evaluated_boards and depth in evaluated_boards[board_hash]:
-        return evaluated_boards[board_hash][depth], board
+    # Include the pieces
+    for row in range(ROWS):
+        for col in range(COLS):
+            piece = board.get_piece(row, col)
+            if piece:
+                piece_index = 0 if piece.color == WHITE else 1
+                zobrist_hash ^= ZOBRIST_PIECE_TABLE[row, col, piece_index]
 
-    best_move = None
+    # Include the walls
+    for wall in board.horizontal_walls:
+        row, col = wall
+        zobrist_hash ^= ZOBRIST_WALL_TABLE[row, col, 0]  # XOR with the horizontal wall hash
 
-    if max_player:
-        maxEval = float("-inf")
-        moves = get_all_moves(board, WHITE)
-        moves.sort(key=lambda x: move_ordering_heuristic(board, x[1], WHITE), reverse=True)
+    for wall in board.vertical_walls:
+        row, col = wall
+        zobrist_hash ^= ZOBRIST_WALL_TABLE[row, col, 1]  # XOR with the vertical wall hash
 
-        for move, _ in moves:
-            evaluation = minimax(move, depth-1, alpha, beta, False, game)[0]
-            maxEval = max(maxEval, evaluation)
-            if maxEval == evaluation:
-                best_move = move
-            alpha = max(alpha, evaluation)
-            if beta <= alpha:
-                break  # Beta pruning
-        evaluated_boards.setdefault(board_hash, {})[depth] = maxEval  # Store evaluation for this depth
+    # Include the color (this can differentiate between turns)
+    zobrist_hash ^= hash(color)
 
-        return maxEval, best_move
+    return zobrist_hash
 
-    else:
-        minEval = float("inf")
-        moves = get_all_moves(board, BLACK)
-        moves.sort(key=lambda x: move_ordering_heuristic(board, x[1], BLACK), reverse=False)
-
-        for move, _ in moves:
-            evaluation = minimax(move, depth-1, alpha, beta, True, game)[0]
-            minEval = min(minEval, evaluation)
-            if minEval == evaluation:
-                best_move = move
-            beta = min(beta, evaluation)
-            if beta <= alpha:
-                break  # Alpha pruning
-        evaluated_boards.setdefault(board_hash, {})[depth] = minEval  # Store evaluation for this depth
-        return minEval, best_move
 
 def negamax(board, depth, alpha, beta, color, game):
     if depth == 0 or board.winner() is not None:
-        return board.evaluate(color), board
+        evaluation = board.evaluate(color)
+        return evaluation, board
     
-    board_hash = hash(board)
-    if board_hash in evaluated_boards and depth in evaluated_boards[board_hash]:
-        return evaluated_boards[board_hash][depth], board
+    # Get the current Zobrist hash for the board state
+    board_hash = compute_zobrist_hash(board, color)
     
+    # Check if this board state is in the transposition table
+    if board_hash in transposition_table and depth in transposition_table[board_hash]:
+        return transposition_table[board_hash][depth], board
+
     best_move = None
     best_value = float("-inf")
 
     moves = get_all_moves(board, color)
-    moves.sort(key=lambda x: move_ordering_heuristic(board, x[1], color), reverse=True)
 
-    for move, _ in moves:
-        evaluation = -negamax(move, depth-1, -beta, -alpha, opposite_color(color), game)[0]
+    for move in moves:
+        evaluation = -negamax(move, depth - 1, -beta, -alpha, opposite_color(color), game)[0]
         if evaluation > best_value:
             best_value = evaluation
             best_move = move
 
         alpha = max(alpha, evaluation)
         if beta <= alpha:
-            break 
-    
-    evaluated_boards.setdefault(board_hash, {})[depth] = best_value
+            break
+
+    # Store evaluated position in transposition table
+    transposition_table.setdefault(board_hash, {})[depth] = best_value
     return best_value, best_move
+
 
 def opposite_color(color):
     return WHITE if color == BLACK else BLACK
 
+
 def simulate_piece_move(piece, move, board):
     board.move_piece(piece, move[0], move[1])
+
     return board
+
 
 def simulate_wall(wall, board, color):
     board.place_wall(wall)
@@ -91,7 +82,9 @@ def simulate_wall(wall, board, color):
         board.black_walls -= 1
     else:
         board.white_walls -= 1
+
     return board
+
 
 def get_all_moves(board, color):
     moves = []
@@ -103,13 +96,12 @@ def get_all_moves(board, color):
         temp_board = partial_deepcopy(board)
         temp_piece = temp_board.get_piece(piece.row, piece.col)
         new_board = simulate_piece_move(temp_piece, move, temp_board)
-
-        moves.append((new_board, move))
+        moves.append(new_board)
 
     walls = board.black_walls if color == BLACK else board.white_walls
     if walls == 0:
         return moves
-    
+
     valid_walls = board.get_valid_walls()
     walls_to_consider = filter_walls(board, valid_walls, color)
 
@@ -119,18 +111,9 @@ def get_all_moves(board, color):
 
         temp_board = partial_deepcopy(board)
         new_board = simulate_wall(wall, temp_board, color)
-        moves.append((new_board, wall))
+        moves.append(new_board)
 
     return moves
-
-def move_ordering_heuristic(board, move, color):
-
-    if isinstance(move, tuple):  # Piece move
-        row, col = move
-        return -row if color == BLACK else row  # Moves forward
-
-
-    return 0  # Default
 
 
 def filter_walls(board, valid_walls, color):
@@ -157,9 +140,9 @@ def filter_walls(board, valid_walls, color):
 
         # Heuristic 3: Avoid unnecessary edge walls
         if orientation == "horizontal" and (col == 0 or col == COLS - 2):
-            continue  # Skip leftmost and rightmost horizontal walls
+            continue
         if orientation == "vertical" and (row == 0 or row == ROWS - 2):
-            continue  # Skip topmost and bottommost vertical walls
+            continue
 
     return filtered_walls
 
@@ -171,10 +154,10 @@ def partial_deepcopy(board):
         [cell if isinstance(cell, int) else deepcopy(cell) for cell in row]
         for row in board.board
     ]
-    new_board.horizontal_walls = board.horizontal_walls.copy()  
-    new_board.vertical_walls = board.vertical_walls.copy()  
-    new_board.valid_walls = board.valid_walls.copy()  
-    new_board.white_walls = board.white_walls  
-    new_board.black_walls = board.black_walls  
+    new_board.horizontal_walls = board.horizontal_walls.copy()
+    new_board.vertical_walls = board.vertical_walls.copy()
+    new_board.valid_walls = board.valid_walls.copy()
+    new_board.white_walls = board.white_walls
+    new_board.black_walls = board.black_walls
 
     return new_board

@@ -6,6 +6,8 @@ from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL
 from .piece import Piece
 from .pathfinding import path_exists, get_cached_path
 
+seen_positions = {} 
+
 class Board:
     def __init__(self):
         self.board = []
@@ -203,28 +205,57 @@ class Board:
     def evaluate(self, color):
         white_piece = self.get_piece_by_color(WHITE)
         black_piece = self.get_piece_by_color(BLACK)
+        opponent_piece = white_piece if color == BLACK else black_piece
 
-        # Compute shortest paths
         white_shortest_path = get_cached_path(self, white_piece, self.horizontal_walls, self.vertical_walls)
         black_shortest_path = get_cached_path(self, black_piece, self.horizontal_walls, self.vertical_walls)
+ 
+        if self.winner() == color:
+            return 10000  
+        if self.winner() == opponent_piece.color:
+            return -10000  
 
-        wall_bonus = ((self.white_walls - self.black_walls) * 2) if color == WHITE else ((self.black_walls - self.white_walls) * 2)
-        
+        path_diff = len(black_shortest_path) - len(white_shortest_path)
+        if color == BLACK:
+            path_diff = -path_diff
+
+        wall_bonus = (self.white_walls - self.black_walls) if color == WHITE else (self.black_walls - self.white_walls)
+
         blockade_bonus = 0
         for wall in self.horizontal_walls | self.vertical_walls:
-            if abs(wall[0] - black_piece.row) <= 1 and abs(wall[1] - black_piece.col) <= 1:
-                blockade_bonus += 3 
+            if abs(wall[0] - opponent_piece.row) <= 1 and abs(wall[1] - opponent_piece.col) <= 1:
+                blockade_bonus += 2  
 
-        black_forward_bonus = black_piece.row  
-        white_forward_penalty = (ROWS - white_piece.row)         
+        black_progress = black_piece.row  
+        white_progress = ROWS - white_piece.row  
 
         if color == WHITE:
-            return (8 * len(black_shortest_path)) - (8 * len(white_shortest_path)) + (2 * wall_bonus) + blockade_bonus + white_forward_penalty - black_forward_bonus
+            forward_bonus = white_progress - black_progress  
         else:
-            return (8 * len(white_shortest_path)) - (8 * len(black_shortest_path)) + (2 * wall_bonus) + blockade_bonus + black_forward_bonus - white_forward_penalty
+            forward_bonus = black_progress - white_progress  
+
+        opponent_moves = self.get_valid_moves(opponent_piece)
+        opponent_mobility = len(opponent_moves)
+
+        center_row, center_col = ROWS // 2, COLS // 2
+        black_center_distance = abs(black_piece.row - center_row) + abs(black_piece.col - center_col)
+        white_center_distance = abs(white_piece.row - center_row) + abs(white_piece.col - center_col)
+
+        if color == WHITE:
+            center_bonus = black_center_distance - white_center_distance
+        else:
+            center_bonus = white_center_distance - black_center_distance
+
+        wall_placement_bonus = 0
+        for wall in self.horizontal_walls | self.vertical_walls:
+            if abs(wall[0] - opponent_piece.row) <= 2 and abs(wall[1] - opponent_piece.col) <= 2:
+                wall_placement_bonus += 1  
+
+        eval_score = (9.35 * path_diff) + (7 * wall_bonus) + (5 * blockade_bonus) + (3 * forward_bonus) + (0.5 * opponent_mobility) + (0.7 * center_bonus) + (2.5 * wall_placement_bonus)
+
+        return eval_score
 
 
-    
     def __repr__(self):
             board_str = ""
             for row in self.board:
@@ -237,9 +268,12 @@ class Board:
             return board_str
     
     def __hash__(self):
+        return hash((
+            tuple(tuple(row) for row in self.board),
+            frozenset(self.horizontal_walls),        
+            frozenset(self.vertical_walls),          
+            self.white_walls, self.black_walls,     
+        ))
+    
 
-        piece_positions = tuple((piece.row, piece.col) for piece in [self.get_piece_by_color(BLACK), self.get_piece_by_color(WHITE)]) 
-        walls = tuple(sorted(self.horizontal_walls)) + tuple(sorted(self.vertical_walls))  
-        
-        return hash((piece_positions, walls))
-        
+            
