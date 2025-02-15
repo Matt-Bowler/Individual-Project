@@ -58,7 +58,7 @@ def self_play(agent_1_weights, agent_2_weights, num_games=10, timeout_seconds=12
 def evaluate_population(population):
     scores = []
     for weights in population:
-        agent_1_wins, agent_2_wins = self_play(weights, generate_random_weights(), num_games=1)
+        agent_1_wins, agent_2_wins = self_play(weights, generate_random_weights(), num_games=5)
         total_games = agent_1_wins + agent_2_wins
         win_rate = agent_1_wins / total_games if total_games > 0 else 0  
         scores.append((win_rate, weights))
@@ -92,10 +92,13 @@ def generate_next_generation(selected_population, population_size):
 
 
 def main():
-    population_size = 2
-    population = [generate_random_weights() for _ in range(population_size)]
+    #Set the initial population size to large to consider various weights 
+    initial_population_size = 6
+    population = [generate_random_weights() for _ in range(initial_population_size)]
 
-    num_generations = 2
+    #Set population size of subsequent generations to lower value and consider only top performers of the initial ones
+    population_size = 5
+    num_generations = 10
 
     for generation in range(num_generations):
         print(f"Generation {generation+1}")
@@ -108,12 +111,26 @@ def main():
         
         population = generate_next_generation(top_performers, population_size)
 
-    print("-" * 20)
+    weight_names = [
+        "Path weight player", 
+        "Path weight opponent", 
+        "Path weight total", 
+        "Wall weight", 
+        "Blockade weight", 
+        "Forward weight"
+    ]
+
+    best_weights_to_use = ""
+    for i, weight in enumerate(sorted_population[0][1]):
+        best_weights_to_use += f"{weight_names[i]}: {weight}, "
+
+    print("-" * 150)
     print(f"\n Final population: {population}\n")
     print(f"Final sorted population: {sorted_population}\n")
     print(f"Best win rate: {sorted_population[0][0]} with weights {sorted_population[0][1]}\n")
-    print(f"\n Best weights to use: {sorted_population[0][1]}\n")
-    print("-" * 20)
+
+    print(f"\n Best weights to use: {best_weights_to_use}\n")
+    print("-" * 150)
 
     
 if __name__ == "__main__":
