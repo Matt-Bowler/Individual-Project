@@ -2,7 +2,7 @@ import pygame
 from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS, COLS, BLACK, WHITE
 from quoridor.game import Game
 from quoridor.wall import Wall
-from quoridor.ai import negamax
+from quoridor.ai import AI
 import time
 
 FPS = 60
@@ -59,25 +59,28 @@ def main():
     run = True
     clock = pygame.time.Clock()
     game = Game(WIN)
+    ai = AI()
 
     while run:
         clock.tick(FPS)
 
         if game.turn == WHITE:
             start = time.time()
-            _, new_board = negamax(game.get_board(), 3, float("-inf"), float("inf"), WHITE, game)
+            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
             end = time.time()
 
             print(f"Time taken: {end - start}")
-            game.ai_move(new_board)
+            if new_board is not None:
+                game.ai_move(new_board)
         
-        # if game.turn == BLACK:
-        #     start = time.time()
-        #     _, new_board = negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK, game)
-        #     end = time.time()
+        if game.turn == BLACK:
+            start = time.time()
+            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK)
+            end = time.time()
 
-        #     print(f"Time taken: {end - start}")
-        #     game.ai_move(new_board)
+            print(f"Time taken: {end - start}")
+            if new_board is not None:
+                game.ai_move(new_board)
 
         if game.winner() != None:
             print(f"Player {'Black' if game.winner() == BLACK else 'White'} wins!")
@@ -110,11 +113,11 @@ def main():
 
 
 if __name__ == "__main__":
-    # main()
+    main()
     
-    import cProfile
-    cProfile.run('main()', 'profile_output')
+    # import cProfile
+    # cProfile.run('main()', 'profile_output')
 
-    import pstats
-    profile = pstats.Stats('profile_output')
-    profile.sort_stats('cumulative').print_stats()
+    # import pstats
+    # profile = pstats.Stats('profile_output')
+    # profile.sort_stats('cumulative').print_stats()

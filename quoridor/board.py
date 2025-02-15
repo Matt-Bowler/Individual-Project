@@ -1,12 +1,9 @@
-import random
 import pygame
 
 from quoridor.wall import Wall
 from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY
 from .piece import Piece
 from .pathfinding import path_exists, get_cached_path
-
-seen_positions = {} 
 
 class Board:
     def __init__(self):
@@ -168,11 +165,9 @@ class Board:
                             moves.add((jump_row, jump_col))
                         # Check diagonal moves if jump blocked
                         else:
-                            # Dont allow diagonal moves if original jump move was off the board,
-                            # implies wall is off the board which is not possible
 
-                            if jump_row < 0 or jump_row >= ROWS or jump_col < 0 or jump_col >= COLS:
-                                continue
+                            # if jump_row < 0 or jump_row >= ROWS or jump_col < 0 or jump_col >= COLS:
+                            #     continue
 
                             diagonals = [(0, 1), (0, -1), (1, 0), (-1, 0)]
                             for diag_dx, diag_dy in diagonals:
@@ -215,16 +210,17 @@ class Board:
         if self.winner() == opponent_piece.color:
             return -10000  
 
-        path_diff = len(black_shortest_path) - len(white_shortest_path)
         if color == BLACK:
-            path_diff = -path_diff
+            path_diff = (1.2 * len(white_shortest_path)) - (1.8 * len(black_shortest_path))
+        else:
+            path_diff = (1.2 * len(black_shortest_path)) - (1.8 * len(white_shortest_path))
 
         wall_bonus = (self.white_walls - self.black_walls) if color == WHITE else (self.black_walls - self.white_walls)
 
         blockade_bonus = 0
         for wall in self.horizontal_walls | self.vertical_walls:
             if abs(wall[0] - opponent_piece.row) <= 1 and abs(wall[1] - opponent_piece.col) <= 1:
-                blockade_bonus += 2  
+                blockade_bonus += 2.5
 
         black_progress = black_piece.row  
         white_progress = ROWS - white_piece.row  
@@ -234,24 +230,7 @@ class Board:
         else:
             forward_bonus = black_progress - white_progress  
 
-        opponent_moves = self.get_valid_moves(opponent_piece)
-        opponent_mobility = len(opponent_moves)
-
-        center_row, center_col = ROWS // 2, COLS // 2
-        black_center_distance = abs(black_piece.row - center_row) + abs(black_piece.col - center_col)
-        white_center_distance = abs(white_piece.row - center_row) + abs(white_piece.col - center_col)
-
-        if color == WHITE:
-            center_bonus = black_center_distance - white_center_distance
-        else:
-            center_bonus = white_center_distance - black_center_distance
-
-        wall_placement_bonus = 0
-        for wall in self.horizontal_walls | self.vertical_walls:
-            if abs(wall[0] - opponent_piece.row) <= 2 and abs(wall[1] - opponent_piece.col) <= 2:
-                wall_placement_bonus += 1  
-
-        eval_score = (9.35 * path_diff) + (7 * wall_bonus) + (5 * blockade_bonus) + (3 * forward_bonus) + (0.5 * opponent_mobility) + (0.7 * center_bonus) + (2.5 * wall_placement_bonus)
+        eval_score = (9.35 * path_diff) + (7 * wall_bonus) + (5 * blockade_bonus) + (3 * forward_bonus)
 
         return eval_score
 
@@ -267,13 +246,6 @@ class Board:
                 board_str += "\n"
             return board_str
     
-    def __hash__(self):
-        return hash((
-            tuple(tuple(row) for row in self.board),
-            frozenset(self.horizontal_walls),        
-            frozenset(self.vertical_walls),          
-            self.white_walls, self.black_walls,     
-        ))
     
 
             
