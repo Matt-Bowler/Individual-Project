@@ -12,9 +12,9 @@ class TrainingBoard(Board):
 
     def evaluate(self, color):
         if color == WHITE:
-            path_weight_player, path_weight_opponent, path_weight_total, wall_weight, blockade_weight, forward_weight = self.weights[0]
+            path_weight_total, wall_weight, blockade_weight, forward_weight = self.weights[0]
         else:
-            path_weight_player, path_weight_opponent, path_weight_total, wall_weight, blockade_weight, forward_weight = self.weights[1]
+            path_weight_total, wall_weight, blockade_weight, forward_weight = self.weights[1]
 
         white_piece = self.get_piece_by_color(WHITE)
         black_piece = self.get_piece_by_color(BLACK)
@@ -29,9 +29,9 @@ class TrainingBoard(Board):
             return float('-inf')  
 
         if color == BLACK:
-            path_diff = (path_weight_opponent * len(white_shortest_path)) - (path_weight_player * len(black_shortest_path))
+            path_diff = (1.2 * len(white_shortest_path)) - (1.8 * len(black_shortest_path))
         else:
-            path_diff = (path_weight_opponent * len(black_shortest_path)) - (path_weight_player * len(white_shortest_path))
+            path_diff = (1.2 * len(black_shortest_path)) - (1.8 * len(white_shortest_path))
 
         wall_bonus = (self.white_walls - self.black_walls) if color == WHITE else (self.black_walls - self.white_walls)
 

@@ -230,7 +230,7 @@ class Board:
         else:
             forward_bonus = black_progress - white_progress  
 
-        eval_score = (9.35 * path_diff) + (7 * wall_bonus) + (5 * blockade_bonus) + (3 * forward_bonus)
+        eval_score = (9.17529240734401 * path_diff) + (2.3371458286973956 * wall_bonus) + (2.4829408251318736 * blockade_bonus) + (0.548062012214623 * forward_bonus)
 
         return eval_score
 

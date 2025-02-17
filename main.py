@@ -64,14 +64,14 @@ def main():
     while run:
         clock.tick(FPS)
 
-        # if game.turn == WHITE:
-        #     start = time.time()
-        #     _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
-        #     end = time.time()
+        if game.turn == WHITE:
+            start = time.time()
+            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
+            end = time.time()
 
-        #     print(f"Time taken: {end - start}")
-        #     if new_board is not None:
-        #         game.ai_move(new_board)
+            print(f"Time taken: {end - start}")
+            if new_board is not None:
+                game.ai_move(new_board)
         
         if game.turn == BLACK:
             start = time.time()

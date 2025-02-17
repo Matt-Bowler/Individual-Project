@@ -1,0 +1,1315 @@
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Timeout games: 5
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Timeout games: 5
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Best win rate: 1.0 with weights [9.47796463 4.9339878  4.91459329 9.5764299  3.21268413 9.17004422]
+Top performers: [array([9.47796463, 4.9339878 , 4.91459329, 9.5764299 , 3.21268413,
+       9.17004422]), array([5.19444235, 9.08678875, 2.68049202, 4.4594598 , 6.31445466,
+       5.47729271]), array([1.71906731, 0.37892213, 4.01957838, 7.34585186, 9.05700954,
+       0.69126164]), array([5.58553398, 7.97831101, 1.67830263, 2.57837811, 8.21298985,
+       4.70728911]), array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       9.65839451]), array([3.27951818, 4.63214942, 6.14735195, 2.76255678, 7.89505816,
+       9.42215603]), array([5.65660951, 8.94463603, 9.29248322, 4.81221713, 4.86630749,
+       7.89773456]), array([3.15223449, 6.90223399, 1.58574238, 6.67435646, 5.85877861,
+       4.67160809]), array([4.75025493, 8.34466345, 4.45266282, 3.69182735, 6.56469921,
+       4.63272229]), array([4.54200596, 9.60366546, 7.50918343, 3.81016003, 4.51002416,
+       6.41113376]), array([8.33134999, 4.30370951, 8.58173269, 0.61868277, 3.73270371,
+       5.1102109 ]), array([3.57764994, 7.79141859, 8.13388048, 2.24884759, 1.04263826,
+       6.12314953]), array([4.21157944, 0.35562155, 4.01577111, 6.04243954, 1.14055249,
+       1.52387867]), array([1.86467567, 2.29752587, 9.70329144, 6.96468605, 6.86188312,
+       0.24530472]), array([4.64020744, 9.84285682, 9.0357667 , 5.06790704, 5.57887574,
+       1.44498687]), array([7.80245074, 2.39543498, 9.55895191, 0.87591143, 1.43926876,
+       9.49591282]), array([3.5471738 , 9.44810561, 9.77762979, 0.13073645, 9.8968142 ,
+       7.11870207]), array([3.52608943, 6.93883025, 7.31692773, 3.22161016, 8.92759844,
+       4.64288406]), array([4.08907841, 6.26490829, 1.50482468, 7.92201497, 5.48730577,
+       6.74828248]), array([6.0703918 , 8.23036437, 2.32950505, 4.56809368, 7.07667243,
+       5.25992364]), array([2.43689178, 8.1996579 , 4.57555772, 2.85825419, 0.76159023,
+       5.91978633]), array([5.00670307, 2.85129659, 8.22385056, 3.73426214, 2.79248291,
+       0.72152281]), array([8.29395807, 5.63877996, 8.91307126, 1.89680185, 7.68307179,
+       0.27493473]), array([6.81412934, 6.38156321, 9.26740066, 8.88550088, 9.18569602,
+       8.04033373]), array([9.46017968, 6.00760956, 4.46352917, 8.20761646, 1.12539913,
+       1.86966615]), array([2.92003678, 6.5211969 , 5.12199398, 3.24943154, 9.4339312 ,
+       3.6219821 ]), array([3.80316613, 2.74517344, 9.53987986, 3.98388729, 1.31082858,
+       5.13675493]), array([9.41709849, 2.53475864, 2.14990622, 9.11404461, 2.86357785,
+       9.79833524]), array([8.19531555, 2.81527189, 6.90812254, 6.58042684, 4.92788039,
+       0.44689979]), array([8.50853369, 8.42726708, 3.74282425, 3.2268033 , 0.12910552,
+       2.91059332]), array([9.58543734, 4.26634313, 6.15296726, 5.1077886 , 4.75836843,
+       8.28132605]), array([2.51412437, 4.55545285, 9.81772852, 1.09724377, 9.19116069,
+       0.91945977]), array([7.29725278, 4.8635819 , 8.29092449, 1.66366361, 5.74996114,
+       7.6081836 ]), array([8.01172062, 2.28697108, 6.93031591, 8.31024795, 4.68790492,
+       4.42309691]), array([6.39384605, 7.55214322, 8.01546146, 7.67248522, 2.70694809,
+       4.22403291]), array([6.88038   , 8.3684629 , 2.19002874, 0.51429958, 6.86743983,
+       1.06772369]), array([7.90929195, 8.84290093, 6.68114116, 2.15611817, 1.6587381 ,
+       6.00283984]), array([7.39655369, 1.45955546, 5.48504776, 9.98344026, 1.40036871,
+       1.37452321]), array([6.82305246, 5.32703252, 1.31661182, 3.47490581, 0.4527174 ,
+       5.52771652]), array([4.29905845, 4.5823653 , 7.11935178, 9.79625499, 8.34957094,
+       4.79771458])]
+Generation 2
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Timeout games: 5
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Best win rate: 1.0 with weights [5.19444235 9.08678875 2.68049202 4.4594598  6.31445466 5.47729271]
+Top performers: [array([5.19444235, 9.08678875, 2.68049202, 4.4594598 , 6.31445466,
+       5.47729271]), array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       9.65839451]), array([3.27951818, 4.63214942, 6.14735195, 2.76255678, 7.89505816,
+       9.42215603]), array([5.65660951, 8.94463603, 9.29248322, 4.81221713, 4.86630749,
+       7.89773456]), array([4.54200596, 9.60366546, 7.50918343, 3.81016003, 4.51002416,
+       6.41113376]), array([3.57764994, 7.79141859, 8.13388048, 2.24884759, 1.04263826,
+       6.12314953]), array([4.21157944, 0.35562155, 4.01577111, 6.04243954, 1.14055249,
+       1.52387867]), array([1.86467567, 2.29752587, 9.70329144, 6.96468605, 6.86188312,
+       0.24530472]), array([3.5471738 , 9.44810561, 9.77762979, 0.13073645, 9.8968142 ,
+       7.11870207]), array([3.52608943, 6.93883025, 7.31692773, 3.22161016, 8.92759844,
+       4.64288406]), array([5.00670307, 2.85129659, 8.22385056, 3.73426214, 2.79248291,
+       0.72152281]), array([6.81412934, 6.38156321, 9.26740066, 8.88550088, 9.18569602,
+       8.04033373]), array([9.46017968, 6.00760956, 4.46352917, 8.20761646, 1.12539913,
+       1.86966615]), array([2.92003678, 6.5211969 , 5.12199398, 3.24943154, 9.4339312 ,
+       3.6219821 ]), array([3.80316613, 2.74517344, 9.53987986, 3.98388729, 1.31082858,
+       5.13675493]), array([9.41709849, 2.53475864, 2.14990622, 9.11404461, 2.86357785,
+       9.79833524])]
+Generation 3
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Best win rate: 1.0 with weights [8.8361592  4.6500033  3.67354288 6.49363847 5.01769744 9.65839451]
+Top performers: [array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       9.65839451]), array([3.27951818, 4.63214942, 6.14735195, 2.76255678, 7.89505816,
+       9.42215603]), array([5.65660951, 8.94463603, 9.29248322, 4.81221713, 4.86630749,
+       7.89773456]), array([4.54200596, 9.60366546, 7.50918343, 3.81016003, 4.51002416,
+       6.41113376]), array([3.57764994, 7.79141859, 8.13388048, 2.24884759, 1.04263826,
+       6.12314953]), array([1.86467567, 2.29752587, 9.70329144, 6.96468605, 6.86188312,
+       0.24530472])]
+Generation 4
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Best win rate: 1.0 with weights [8.8361592  4.6500033  3.67354288 6.49363847 5.01769744 9.65839451]
+Top performers: [array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       9.65839451]), array([5.65660951, 8.94463603, 9.29248322, 4.81221713, 4.86630749,
+       7.89773456])]
+Generation 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Best win rate: 1.0 with weights [8.8361592  4.6500033  3.67354288 6.49363847 5.01769744 9.65839451]
+Top performers: [array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       9.65839451]), array([5.65660951, 8.94463603, 9.29248322, 4.81221713, 4.86630749,
+       7.89773456])]
+Generation 6
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Best win rate: 1.0 with weights [8.8361592  4.6500033  9.29248322 4.81221713 4.86630749 7.89773456]
+Top performers: [array([8.8361592 , 4.6500033 , 9.29248322, 4.81221713, 4.86630749,
+       7.89773456]), array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       9.65839451])]
+Generation 7
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Best win rate: 1.0 with weights [8.8361592  4.6500033  9.29248322 4.81221713 4.86630749 7.89773456]
+Top performers: [array([8.8361592 , 4.6500033 , 9.29248322, 4.81221713, 4.86630749,
+       7.89773456]), array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       7.89773456])]
+Generation 8
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Best win rate: 1.0 with weights [8.8361592  4.6500033  3.67354288 6.49363847 5.01769744 7.89773456]
+Top performers: [array([8.8361592 , 4.6500033 , 3.67354288, 6.49363847, 5.01769744,
+       7.89773456]), array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])]
+Generation 9
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Best win rate: 1.0 with weights [8.8361592  4.6500033  9.29248322 6.49363847 5.01769744 7.89773456]
+Top performers: [array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]), array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])]
+Generation 10
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 0, Agent 2 wins: 5
+Game complete
+Game complete
+Game complete
+Game complete
+Game complete
+Timeout games: 0
+Agent 1 wins: 5, Agent 2 wins: 0
+Best win rate: 1.0 with weights [8.8361592  4.6500033  9.29248322 6.49363847 5.01769744 7.89773456]
+Top performers: [array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]), array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])]
+------------------------------------------------------------------------------------------------------------------------------------------------------
+
+ Final population: [array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]), array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]), array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]), array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]), array([7.98109768, 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])]
+
+Final sorted population: [(1.0, array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])), (1.0, array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])), (1.0, array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])), (0.0, array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456])), (0.0, array([8.8361592 , 4.6500033 , 9.29248322, 6.49363847, 5.01769744,
+       7.89773456]))]
+
+Best win rate: 1.0 with weights [8.8361592  4.6500033  9.29248322 6.49363847 5.01769744 7.89773456]
+
+
+ Best weights to use: Path weight player: 8.83615920452346, Path weight opponent: 4.650003302810892, Path weight total: 9.292483220914828, Wall weight: 6.493638472312772, Blockade weight: 5.017697439062403, Forward weight: 7.897734562548774,
+
+------------------------------------------------------------------------------------------------------------------------------------------------------
