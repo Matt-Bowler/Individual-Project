@@ -1,13 +1,18 @@
 import pygame
-from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS, COLS, BLACK, WHITE
+import pygame_gui
+from quoridor.constants import WIDTH, HEIGHT, SQUARE_SIZE, WALL_THICKNESS, ROWS, COLS, BLACK, RATIO
 from quoridor.game import Game
 from quoridor.wall import Wall
 from quoridor.ai import AI
 import time
 
+
+pygame.init()
 FPS = 60
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Quoridor")
+background = pygame.Surface((WIDTH, HEIGHT))
+background.fill(((71, 65, 60)))
 
 class WallSelection:
     def __init__(self, row, col, orientation):
@@ -24,8 +29,8 @@ def get_selection_from_mouse(pos):
     x, y = pos
 
     # Calculate row and column of square
-    row = y // SQUARE_SIZE
-    col = x // SQUARE_SIZE
+    row = int(y // SQUARE_SIZE)
+    col = int(x // SQUARE_SIZE)
 
     if(row >= ROWS or col >= COLS):
         return None
@@ -62,23 +67,20 @@ def main():
     ai = AI()
 
     while run:
-        clock.tick(FPS)
+        time_delta = clock.tick(FPS) / 1000.0
 
-        if game.turn == WHITE:
-            start = time.time()
-            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
-            end = time.time()
+        # if game.turn == WHITE:
+        #     start = time.time()
+        #     _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
+        #     end = time.time()
 
-            print(f"Time taken: {end - start}")
-            if new_board is not None:
-                game.ai_move(new_board)
+        #     print(f"Time taken: {end - start}")
+        #     if new_board is not None:
+        #         game.ai_move(new_board)
         
         if game.turn == BLACK:
-            start = time.time()
             _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK)
-            end = time.time()
 
-            print(f"Time taken: {end - start}")
             if new_board is not None:
                 game.ai_move(new_board)
 
@@ -92,6 +94,9 @@ def main():
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 pos = pygame.mouse.get_pos()
+                if event.button == 3:
+                    print(pos)
+
                 selection = get_selection_from_mouse(pos)
                 if isinstance(selection, WallSelection):
                     wall = Wall(selection.row, selection.col, selection.orientation)
@@ -107,7 +112,9 @@ def main():
                     game.wall_hovered = wall
                 if isinstance(selection, SquareSelection):
                     game.wall_hovered = None
+
         
+        WIN.blit(background, (0, 0))
         game.update()
     pygame.quit()
 

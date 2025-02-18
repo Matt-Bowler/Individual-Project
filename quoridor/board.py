@@ -1,7 +1,7 @@
 import pygame
 
 from quoridor.wall import Wall
-from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY
+from .constants import BAIGE, BROWN, WHITE, BLACK, ROWS, COLS, SQUARE_SIZE, WALL_THICKNESS, GREY, HEIGHT, WIDTH, RATIO
 from .piece import Piece
 from .pathfinding import path_exists, get_cached_path
 
@@ -43,9 +43,9 @@ class Board:
 
     def draw_dividers(self, win):
         for row in range(ROWS + 1): 
-            pygame.draw.line(win, GREY, (0, row * SQUARE_SIZE), (COLS * SQUARE_SIZE, row * SQUARE_SIZE), WALL_THICKNESS)
+            pygame.draw.line(win, GREY, (0, row * SQUARE_SIZE), ((COLS * SQUARE_SIZE), row * SQUARE_SIZE), WALL_THICKNESS)
         for col in range(COLS + 1):  
-            pygame.draw.line(win, GREY, (col * SQUARE_SIZE, 0), (col * SQUARE_SIZE, ROWS * SQUARE_SIZE), WALL_THICKNESS)
+            pygame.draw.line(win, GREY, (col * SQUARE_SIZE, 0), (col * SQUARE_SIZE, (ROWS * SQUARE_SIZE)), WALL_THICKNESS)
     
     def draw_walls(self, win):
         for row, col in self.horizontal_walls:
@@ -56,11 +56,21 @@ class Board:
             start_pos = (col * SQUARE_SIZE, (row - 1) * SQUARE_SIZE + (WALL_THICKNESS // 2) + 1)
             end_pos = (col  * SQUARE_SIZE, (row + 1) * SQUARE_SIZE - (WALL_THICKNESS // 2))
             pygame.draw.line(win, BLACK, start_pos, end_pos, WALL_THICKNESS)
+
+    def draw_walls_remaining(self, win):
+        # Resposive
+        font_size = int((HEIGHT - (HEIGHT // RATIO)) // 2)
+        font = pygame.font.SysFont(None, font_size)
+        text = font.render(f"White Walls: {self.white_walls}", True, WHITE)
+        win.blit(text, (0, HEIGHT // RATIO + 5))
+        text = font.render(f"Black Walls: {self.black_walls}", True, BLACK)
+        win.blit(text, (0 , HEIGHT // RATIO + (font_size + 5)))
         
     def draw(self, win):
         self.draw_squares(win)
         self.draw_dividers(win)
         self.draw_walls(win)
+        self.draw_walls_remaining(win)
         for row in range(ROWS):
             for col in range(COLS):
                 piece = self.board[row][col]
