@@ -49,7 +49,7 @@ class AI:
     def __init__(self):
         self.cache = Cache()
 
-    def negamax(self, board, depth, alpha, beta, color):
+    def negamax(self, board, depth, alpha, beta, color, progress_callback=None):
         if depth == 0 or board.winner() is not None:
             evaluation = board.evaluate(color)
             return evaluation, board
@@ -67,7 +67,9 @@ class AI:
         best_value = float("-inf")
 
         moves = self.get_all_moves(board, color)
-        for move in moves:
+        num_moves = len(moves)
+        
+        for i, move in enumerate(moves):
             evaluation = -self.negamax(move, depth - 1, -beta, -alpha, self.opposite_color(color))[0]
             if evaluation > best_value:
                 best_value = evaluation
@@ -76,6 +78,10 @@ class AI:
             alpha = max(alpha, evaluation)
             if beta <= alpha:
                 break
+
+            if progress_callback:
+                progress = ((i + 1) / num_moves) * 100
+                progress_callback(progress)
 
         # Store evaluated position in transposition table
         self.cache.transposition_table[board_hash] = (best_value, depth)
@@ -176,8 +182,4 @@ class AI:
         new_board.black_walls = board.black_walls
 
         return new_board
-
-
-
-
-
+    

@@ -4,8 +4,8 @@ from quoridor.constants import *
 from quoridor.game import Game
 from quoridor.wall import Wall
 from quoridor.ai import AI
-
-from ui import render_main_menu
+from ui import render_main_menu, game_over_screen
+import time
 
 pygame.init()
 pygame.display.set_caption("Quoridor")
@@ -14,6 +14,16 @@ WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 background = pygame.Surface((WIDTH, HEIGHT))
 background.fill((BACKGROUND_COLOR))
 clock = pygame.time.Clock()
+
+manager = pygame_gui.UIManager((WIDTH, HEIGHT), "theme.json")
+
+progress_bar = pygame_gui.elements.UIProgressBar(pygame.Rect((WIDTH - 220, HEIGHT - 40, 200, 30)), 
+                                                 manager, 
+                                                 visible=False)
+thinking_text = pygame_gui.elements.UILabel(pygame.Rect((WIDTH - 220, HEIGHT - 70, 200, 30)), 
+                                            "AI is thinking...", 
+                                            manager, 
+                                            visible=False)
 
 
 class WallSelection:
@@ -75,20 +85,46 @@ def main():
         time_delta = clock.tick(FPS) / 1000.0
 
         if game.turn == WHITE and white_is_ai:
-            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
+            thinking_text.show()
+            progress_bar.show()
+
+            def update_progress(progress):
+                progress_bar.set_current_progress(progress)
+                manager.update(time_delta)
+                manager.draw_ui(WIN)
+                pygame.display.update()
+
+            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
+            thinking_text.hide()
+            progress_bar.hide()
 
             if new_board is not None:
                 game.ai_move(new_board)
         
         if game.turn == BLACK and black_is_ai:
-            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK)
+            progress_bar.show()
+            thinking_text.show()
+
+            def update_progress(progress):
+                progress_bar.set_current_progress(progress)
+                manager.update(time_delta)
+                manager.draw_ui(WIN)
+                pygame.display.update()
+
+            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK, progress_callback=update_progress)
+            thinking_text.hide()
+            progress_bar.hide()
 
             if new_board is not None:
                 game.ai_move(new_board)
 
         if game.winner() != None:
-            print(f"Player {'Black' if game.winner() == BLACK else 'White'} wins!")
-            run = False
+            winner = "White" if game.winner() == WHITE else "Black"
+            play_again = game_over_screen(winner)
+            if play_again:
+                main()
+            else:
+                run = False
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -119,6 +155,9 @@ def main():
         
         WIN.blit(background, (0, 0))
         game.update()
+        manager.update(time_delta)
+        manager.draw_ui(WIN)
+        pygame.display.update()
     pygame.quit()
 
 

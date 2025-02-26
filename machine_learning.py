@@ -6,6 +6,8 @@ import time
 from colorama import Fore, Style, init
 init(autoreset=True) 
 
+pygame.init()
+
 
 def generate_random_weights():
     return np.random.uniform(low=0.1, high=10, size=4)
@@ -23,7 +25,8 @@ def self_play(agent_1_weights, agent_2_weights, num_games=10, timeout_seconds=12
 
         run = True
         clock = pygame.time.Clock()
-        game = TrainingGame(pygame.display.set_mode((WIDTH, HEIGHT)), [agent_1_weights, agent_2_weights])
+        # To visualise the games add pass a pygame window to TrainingGame and uncomment game.update() below
+        game = TrainingGame(None, [agent_1_weights, agent_2_weights])
         agent_1 = TrainingAI()
         agent_2 = TrainingAI()
 
@@ -55,7 +58,7 @@ def self_play(agent_1_weights, agent_2_weights, num_games=10, timeout_seconds=12
                     agent_2_wins += 1
                 run = False
                     
-            game.update()
+            # game.update()
     print(f"Timeout games: {timeout_games}")
     print(f"Agent 1 wins: {agent_1_wins}, Agent 2 wins: {agent_2_wins} \n")
     pygame.quit()
@@ -107,7 +110,7 @@ def main():
     population_size = 10
     num_generations = 12
 
-    with open("Machine Learning Results 2.txt", "w") as file: 
+    with open("new.txt", "w") as file: 
         for generation in range(num_generations):
             print(Style.BRIGHT + Fore.RED + "\033[4m" + f"Generation {generation+1}" + "\033[0m")
             file.write(f"Generation {generation+1}\n")
