@@ -1,5 +1,3 @@
-import pygame
-
 class Wall:
     def __init__(self, row, col, orientation):
         self.row = row

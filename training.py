@@ -8,6 +8,7 @@ from quoridor.constants import BLACK, WHITE, ROWS
 class TrainingBoard(Board):
     def __init__(self, weights):
         super().__init__()
+        # Allows weights to be assigned to the evaluation function for training in machine_learning.py
         self.weights = weights
 
     def evaluate(self, color):
@@ -24,9 +25,9 @@ class TrainingBoard(Board):
         black_shortest_path = get_cached_path(self, black_piece, self.horizontal_walls, self.vertical_walls)
  
         if self.winner() == color:
-            return float('inf')  
+            return float(10000)  
         if self.winner() == opponent_piece.color:
-            return float('-inf')  
+            return float(-10000)  
 
         if color == BLACK:
             path_diff = (1.2 * len(white_shortest_path)) - (1.8 * len(black_shortest_path))
@@ -60,10 +61,13 @@ class TrainingGame(Game):
 
     def _init(self):
         super()._init()
+        # Uses the TrainingBoard class to create a game instance for training
         self.board = TrainingBoard(self.weights)
 
 
+
 class TrainingAI(AI):
+    # Overrides partial_deepcopy to use the TrainingBoard class
     def partial_deepcopy(self, board):
         new_board = TrainingBoard(board.weights)
 

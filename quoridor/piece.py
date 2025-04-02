@@ -30,3 +30,10 @@ class Piece:
     
     def __repr__(self):
         return str(self.color)
+    
+    def __eq__(self, other):
+        if isinstance(other, Piece):
+            return (self.row == other.row and 
+                    self.col == other.col and 
+                    self.color == other.color)
+        return False

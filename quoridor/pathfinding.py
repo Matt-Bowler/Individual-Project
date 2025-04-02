@@ -14,6 +14,8 @@ class QuoridorGrid(Grid):
     
     def neighbors(self, node, diagonal_movement=DiagonalMovement.never):
         x, y = node.x, node.y
+        
+        # The grid coordinates are (x, y) where x is the column and y is the row
         board_row, board_col = y , x
 
         neighbors = []
@@ -47,14 +49,15 @@ def path_exists(board, horizontal_walls, vertical_walls):
                 if piece.color == WHITE:
                     white_pos = (row, col)  
     
-
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
     finder = BiAStarFinder(diagonal_movement=DiagonalMovement.never)
 
     black_start = grid_obj.node(black_pos[1], black_pos[0])
+    # The goal for black is to reach the last row (ROWS - 1)S
     black_goal_nodes = [grid_obj.node(x, ROWS - 1) for x in range(COLS)]
 
     white_start = grid_obj.node(white_pos[1], white_pos[0])
+    # The goal for white is to reach the first row (0)
     white_goal_nodes = [grid_obj.node(x, 0) for x in range(COLS)]
 
     for goal in black_goal_nodes:
@@ -71,11 +74,8 @@ def path_exists(board, horizontal_walls, vertical_walls):
 
     return True
 
-def get_cached_path(board, piece, horizontal_walls, vertical_walls):
-    path = shortest_path(board, horizontal_walls, vertical_walls, piece)
-    return path
 
-def shortest_path(board, horizontal_walls, vertical_walls, piece):
+def shortest_path(horizontal_walls, vertical_walls, piece):
     grid_obj = QuoridorGrid(matrix=grid, horizontal_walls=horizontal_walls, vertical_walls=vertical_walls)
     finder = BiAStarFinder(diagonal_movement=DiagonalMovement.never)
 

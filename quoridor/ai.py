@@ -1,74 +1,23 @@
 from copy import deepcopy
-import numpy as np
 
 from quoridor.board import Board
 from .constants import BLACK, WHITE, ROWS, COLS
 
-class Cache:
-    def __init__(self):
-        self.ZOBRIST_PIECE_TABLE = np.random.randint(0, 2**64, size=(ROWS, COLS, 2), dtype=np.uint64)
-        self.ZOBRIST_WALL_TABLE = np.random.randint(0, 2**64, size=(ROWS, COLS, 2), dtype=np.uint64)
-        self.ZOBRIST_COLOR_WHITE = np.random.randint(0, 2**64, dtype=np.uint64)
-        self.ZOBRIST_COLOR_BLACK = np.random.randint(0, 2**64, dtype=np.uint64)
-        self.transposition_table = {} 
-
-    def compute_zobrist_hash(self, board, color):
-        zobrist_hash = 0
-
-        # Include the pieces
-        for row in range(ROWS):
-            for col in range(COLS):
-                piece = board.get_piece(row, col)
-                if piece:
-                    piece_index = 0 if piece.color == WHITE else 1
-                    zobrist_hash ^= self.ZOBRIST_PIECE_TABLE[row, col, piece_index]
-
-        # Include the walls
-        for wall in board.horizontal_walls:
-            row, col = wall
-            zobrist_hash ^= self.ZOBRIST_WALL_TABLE[row, col, 0]  # XOR with the horizontal wall hash
-
-        for wall in board.vertical_walls:
-            row, col = wall
-            zobrist_hash ^= self.ZOBRIST_WALL_TABLE[row, col, 1]  # XOR with the vertical wall hash
-
-        if color == WHITE: 
-            zobrist_hash ^= self.ZOBRIST_COLOR_WHITE
-        else:
-            zobrist_hash ^= self.ZOBRIST_COLOR_BLACK
-
-        return zobrist_hash
-    
-    def clear(self):
-        self.__init__()
-
-
-
-
 class AI:
-    def __init__(self):
-        self.cache = Cache()
+    def __init__(self, depth=2):
+        self.depth = depth
 
     def negamax(self, board, depth, alpha, beta, color, progress_callback=None):
         if depth == 0 or board.winner() is not None:
             evaluation = board.evaluate(color)
             return evaluation, board
-        
-        # Get the current Zobrist hash for the board state
-        board_hash = self.cache.compute_zobrist_hash(board, color)
-        
-        # Check if this board state is in the transposition table
-        if board_hash in self.cache.transposition_table:
-            cached_value, cached_depth = self.cache.transposition_table[board_hash]
-            if cached_depth >= depth:
-                return cached_value, board
 
         best_move = None
         best_value = float("-inf")
 
         moves = self.get_all_moves(board, color)
         num_moves = len(moves)
-        
+                
         for i, move in enumerate(moves):
             evaluation = -self.negamax(move, depth - 1, -beta, -alpha, self.opposite_color(color))[0]
             if evaluation > best_value:
@@ -82,9 +31,6 @@ class AI:
             if progress_callback:
                 progress = ((i + 1) / num_moves) * 100
                 progress_callback(progress)
-
-        # Store evaluated position in transposition table
-        self.cache.transposition_table[board_hash] = (best_value, depth)
         return best_value, best_move
 
 
@@ -96,7 +42,6 @@ class AI:
 
         return board
 
-
     def simulate_wall(self, wall, board, color):
         board.place_wall(wall)
         if color == BLACK:
@@ -105,7 +50,6 @@ class AI:
             board.white_walls -= 1
 
         return board
-
 
     def get_all_moves(self, board, color):
         moves = []
@@ -147,7 +91,7 @@ class AI:
         for wall in valid_walls:
             row, col, orientation = wall.row, wall.col, wall.orientation
 
-            # Heuristic 1: Walls near the opponent’s or player’s pawn (radius 3)
+            # Heuristic 1: Walls near the opponent or player (radius 3)
             if abs(row - player_piece.row) + abs(col - player_piece.col) <= 3 or \
             abs(row - opponent_piece.row) + abs(col - opponent_piece.col) <= 3:
                 filtered_walls.append(wall)
@@ -182,4 +126,5 @@ class AI:
         new_board.black_walls = board.black_walls
 
         return new_board
+
     

@@ -5,7 +5,6 @@ from quoridor.game import Game
 from quoridor.wall import Wall
 from quoridor.ai import AI
 from ui import render_main_menu, game_over_screen
-import time
 
 pygame.init()
 pygame.display.set_caption("Quoridor")
@@ -16,7 +15,6 @@ background.fill((BACKGROUND_COLOR))
 clock = pygame.time.Clock()
 
 manager = pygame_gui.UIManager((WIDTH, HEIGHT), "theme.json")
-
 progress_bar = pygame_gui.elements.UIProgressBar(pygame.Rect((WIDTH - 220, HEIGHT - 40, 200, 30)), 
                                                  manager, 
                                                  visible=False)
@@ -25,13 +23,14 @@ thinking_text = pygame_gui.elements.UILabel(pygame.Rect((WIDTH - 220, HEIGHT - 7
                                             manager, 
                                             visible=False)
 
-
+# Handles when selected part of screen is a divider
 class WallSelection:
     def __init__(self, row, col, orientation):
         self.row = row
         self.col = col
         self.orientation = orientation
 
+# Handles when selected part of screen is a square
 class SquareSelection:
     def __init__(self, row, col):
         self.row = row
@@ -44,6 +43,7 @@ def get_selection_from_mouse(pos):
     row = int(y // SQUARE_SIZE)
     col = int(x // SQUARE_SIZE)
 
+    # If selection is out of bounds, return None
     if(row >= ROWS or col >= COLS):
         return None
     
@@ -51,21 +51,21 @@ def get_selection_from_mouse(pos):
     x_remainder = x % SQUARE_SIZE
     y_remainder = y % SQUARE_SIZE
 
-    # Check for horizontal wall (between rows)
+    # Check for horizontal wall selection (between rows)
     if WALL_THICKNESS <= x_remainder <= SQUARE_SIZE - WALL_THICKNESS:
-        # Horizontal wall above the square
+        # Horizontal wall selection above the square
         if y_remainder < WALL_THICKNESS:
             return WallSelection(row - 1, col, "horizontal")
-        # Horizontal wall below the square
+        # Horizontal wall selection below the square
         elif y_remainder > SQUARE_SIZE - WALL_THICKNESS:  
             return WallSelection(row, col, "horizontal")
 
-    # Check for vertical wall (between columns)
+    # Check for vertical wall selection (between columns)
     if WALL_THICKNESS <= y_remainder <= SQUARE_SIZE - WALL_THICKNESS:
-        # Vertical wall to the left
+        # Vertical wall selection to the left
         if x_remainder < WALL_THICKNESS:  
             return WallSelection(row, col, "vertical")
-        # Vertical wall to the right
+        # Vertical wall selection to the right
         elif x_remainder > SQUARE_SIZE - WALL_THICKNESS:  
             return WallSelection(row, col + 1, "vertical") 
 
@@ -74,12 +74,13 @@ def get_selection_from_mouse(pos):
 
 
 def main():
+    # Get whether any AI players are selected in the main menu
     white_is_ai, black_is_ai = render_main_menu()
 
     run = True
     game = Game(WIN)
     if black_is_ai or white_is_ai:
-        ai = AI()
+        ai = AI(depth=2)
 
     while run:
         time_delta = clock.tick(FPS) / 1000.0
@@ -88,17 +89,21 @@ def main():
             thinking_text.show()
             progress_bar.show()
 
+            # Progress callback function to update the progress bar when AI is making a move
             def update_progress(progress):
                 progress_bar.set_current_progress(progress)
                 manager.update(time_delta)
                 manager.draw_ui(WIN)
                 pygame.display.update()
 
-            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
+            
+            # Get the best move the AI evaluated
+            _, new_board = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
             thinking_text.hide()
             progress_bar.hide()
 
             if new_board is not None:
+                # Make the AI move
                 game.ai_move(new_board)
         
         if game.turn == BLACK and black_is_ai:
@@ -111,7 +116,7 @@ def main():
                 manager.draw_ui(WIN)
                 pygame.display.update()
 
-            _, new_board = ai.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK, progress_callback=update_progress)
+            _, new_board = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), BLACK, progress_callback=update_progress)
             thinking_text.hide()
             progress_bar.hide()
 
@@ -120,6 +125,7 @@ def main():
 
         if game.winner() != None:
             winner = "White" if game.winner() == WHITE else "Black"
+            # Display game over screen and determine if user wants to play again
             play_again = game_over_screen(winner)
             if play_again:
                 main()
@@ -130,19 +136,19 @@ def main():
             if event.type == pygame.QUIT:
                 run = False
 
+            # Only allow interaction with the board if current player is human
             if (game.turn == WHITE and not white_is_ai) or (game.turn == BLACK and not black_is_ai):
+                # Handles mouse clicks i.e. placing walls and selecting squares
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    pos = pygame.mouse.get_pos()
-                    if event.button == 3:
-                        print(pos)
-
                     selection = get_selection_from_mouse(pos)
                     if isinstance(selection, WallSelection):
                         wall = Wall(selection.row, selection.col, selection.orientation)
                         game.place_wall(wall)
+                        print(f"Placed wall at {selection.row}, {selection.col} with orientation {selection.orientation}")
                     if isinstance(selection, SquareSelection):
                         game.select_square(selection.row, selection.col)
                 
+                # Handles mouse motion i.e. hovering over dividers, which shows a preview of the wall if valid
                 if event.type == pygame.MOUSEMOTION:
                     pos = pygame.mouse.get_pos()
                     selection =  get_selection_from_mouse(pos)
