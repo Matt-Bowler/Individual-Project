@@ -1,4 +1,6 @@
 import pygame
+
+from quoridor.wall import Wall
 from .board import Board
 from .constants import *
 
@@ -69,6 +71,7 @@ class Game:
         else:
             return False
         
+        self.print_move((row, col))
         return True
     
     def player_has_walls(self):
@@ -89,6 +92,7 @@ class Game:
         else:
             return False
         
+        self.print_move(wall)
         return True
     
     def change_turn(self):
@@ -119,3 +123,18 @@ class Game:
         # Update board state to one evaluated best by AI
         self.board = board
         self.change_turn()
+
+    def print_move(self, move):
+        player = "White" if self.turn == WHITE else "Black"
+
+        if isinstance(move, Wall):
+            row_coord = self.translate_row_coord(move.col + 1)
+            orientation = "h" if move.orientation == "horizontal" else "v"
+            print(f"{player}: {row_coord}{9 - move.row}{orientation}")
+        else:
+            row_coord = self.translate_row_coord(move[1] + 1)
+            print(f"{player}: {row_coord}{9 - move[0]}")
+
+    def translate_row_coord(self, row):
+        return chr(row + 96)
+

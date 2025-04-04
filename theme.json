@@ -7,5 +7,13 @@
             "normal_border": "#FFFFFF",
             "active_bg": "#B58863"
         }
+    },
+    "progress_bar": {
+        "colours": {
+            "normal_text": "#FFFFFF",
+            "unfilled_bar": "#B58863",
+            "filled_bar": "#b87f51",
+            "normal_border": "#FFFFFF"
+        }
     }
 }

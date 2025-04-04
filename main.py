@@ -98,13 +98,14 @@ def main():
 
             
             # Get the best move the AI evaluated
-            _, new_board = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
+            _, new_board, move = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
             thinking_text.hide()
             progress_bar.hide()
 
             if new_board is not None:
                 # Make the AI move
                 game.ai_move(new_board)
+                game.print_move(move)
         
         if game.turn == BLACK and black_is_ai:
             progress_bar.show()
@@ -116,12 +117,13 @@ def main():
                 manager.draw_ui(WIN)
                 pygame.display.update()
 
-            _, new_board = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), BLACK, progress_callback=update_progress)
+            _, new_board, move = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), BLACK, progress_callback=update_progress)
             thinking_text.hide()
             progress_bar.hide()
 
             if new_board is not None:
                 game.ai_move(new_board)
+                game.print_move(move)
 
         if game.winner() != None:
             winner = "White" if game.winner() == WHITE else "Black"
@@ -144,7 +146,6 @@ def main():
                     if isinstance(selection, WallSelection):
                         wall = Wall(selection.row, selection.col, selection.orientation)
                         game.place_wall(wall)
-                        print(f"Placed wall at {selection.row}, {selection.col} with orientation {selection.orientation}")
                     if isinstance(selection, SquareSelection):
                         game.select_square(selection.row, selection.col)
                 
