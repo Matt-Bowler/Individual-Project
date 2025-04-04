@@ -14,7 +14,7 @@ class AI:
             return evaluation, board, None
 
         # Best move is the board state returned after the move
-        # Best action is the action (piece move or wal placement) taken to get to that board state
+        # Best action is the action (piece move or wall placement) taken to get to that board state
         best_move = None
         best_action = None
         best_value = float("-inf")
@@ -40,7 +40,6 @@ class AI:
                 progress_callback(progress)
 
         return best_value, best_move, best_action
-
 
     def opposite_color(self, color):
         return WHITE if color == BLACK else BLACK

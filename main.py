@@ -82,6 +82,7 @@ def main():
     if black_is_ai or white_is_ai:
         ai = AI(depth=2)
 
+    print("\n--- New Game ---")
     while run:
         time_delta = clock.tick(FPS) / 1000.0
 
@@ -102,7 +103,7 @@ def main():
             thinking_text.hide()
             progress_bar.hide()
 
-            if new_board is not None:
+            if new_board is not None and move is not None:
                 # Make the AI move
                 game.ai_move(new_board)
                 game.print_move(move)
@@ -121,7 +122,7 @@ def main():
             thinking_text.hide()
             progress_bar.hide()
 
-            if new_board is not None:
+            if new_board is not None and move is not None:
                 game.ai_move(new_board)
                 game.print_move(move)
 

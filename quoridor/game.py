@@ -125,7 +125,9 @@ class Game:
         self.change_turn()
 
     def print_move(self, move):
-        player = "White" if self.turn == WHITE else "Black"
+        # Since is called after a move is made, the turn has already changed
+        # So we need to get the player who just made the move
+        player = "White" if self.turn == BLACK else "Black"
 
         if isinstance(move, Wall):
             row_coord = self.translate_row_coord(move.col + 1)
