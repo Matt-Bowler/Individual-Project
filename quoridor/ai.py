@@ -6,12 +6,15 @@ from .constants import BLACK, WHITE, ROWS, COLS
 class AI:
     def __init__(self, depth=2):
         self.depth = depth
-
+    
+    # Recursive minimax function optimised for two players
     def negamax(self, board, depth, alpha, beta, color, progress_callback=None):
         if depth == 0 or board.winner() is not None:
             evaluation = board.evaluate(color)
             return evaluation, board, None
 
+        # Best move is the board state returned after the move
+        # Best action is the action (piece move or wal placement) taken to get to that board state
         best_move = None
         best_action = None
         best_value = float("-inf")
@@ -26,13 +29,16 @@ class AI:
                 best_move = move
                 best_action = action
 
+            # Alpha-beta pruning
             alpha = max(alpha, evaluation)
             if beta <= alpha:
                 break
-
+            
+            # Used to update the progress bar if callback function is passed in
             if progress_callback:
                 progress = ((i + 1) / num_moves) * 100
                 progress_callback(progress)
+
         return best_value, best_move, best_action
 
 
@@ -65,11 +71,13 @@ class AI:
             new_board = self.simulate_piece_move(temp_piece, move, temp_board)
             moves.append((new_board, move))
 
+        # Dont consider wall placement if no walls left
         walls = board.black_walls if color == BLACK else board.white_walls
         if walls == 0:
             return moves
 
         valid_walls = board.get_valid_walls()
+        # Only consider subset of walls based on heuristics
         walls_to_consider = self.filter_walls(board, valid_walls, color)
 
         for wall in walls_to_consider:
