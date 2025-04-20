@@ -96,7 +96,7 @@ class Board:
         
         self.remove_invalid_walls(wall)
     
-    # Given a wall placement we can remove the walls that are invalidated by it (overlapping)
+    # Given a wall placement we can remove the walls that are invalidated by it (overlapping and crossing   )
     def remove_invalid_walls(self, wall):
         self.valid_walls.remove(wall)
 
@@ -260,7 +260,7 @@ class Board:
         # 1. Path length difference - difference between the lengths of the shortest paths for both players
         # 2. Wall bonus - difference in the number of walls remaining for both players
         # 3. Proximity bonus - number of walls that are close to the opponent's piece
-        # 4. Forward bonus - difference in row progrersss of both players (how far they are from their goal)
+        # 4. Forward bonus - difference in row progress of both players 
         # 5. Random factor - to introduce some randomness in the evaluation score to make less deterministic
 
         return eval_score

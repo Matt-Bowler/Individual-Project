@@ -9,8 +9,8 @@ grid = [[0 for _ in range(COLS)] for _ in range(ROWS)]
 class QuoridorGrid(Grid):
     def __init__(self, *args, horizontal_walls, vertical_walls, **kwargs):
         super().__init__(*args, **kwargs)
-        self.horizontal_walls = set(horizontal_walls)
-        self.vertical_walls = set(vertical_walls) 
+        self.horizontal_walls = horizontal_walls
+        self.vertical_walls = vertical_walls 
     
     def neighbors(self, node, diagonal_movement=DiagonalMovement.never):
         x, y = node.x, node.y

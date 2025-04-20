@@ -46,12 +46,12 @@ def self_play(agent_1_weights, agent_2_weights, num_games=10, timeout_seconds=12
                 break
 
             if game.turn == WHITE:
-                _, new_board = agent_1.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
+                _, new_board, _ = agent_1.negamax(game.get_board(), 2, float("-inf"), float("inf"), WHITE)
                 if new_board is not None:
                     game.ai_move(new_board)
             
             if game.turn == BLACK:
-                _, new_board = agent_2.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK)
+                _, new_board, _ = agent_2.negamax(game.get_board(), 2, float("-inf"), float("inf"), BLACK)
                 if new_board is not None:
                     game.ai_move(new_board)
             

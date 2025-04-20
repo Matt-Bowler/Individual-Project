@@ -111,13 +111,6 @@ class AI:
             (row - 1, col, orientation) in board.valid_walls or (row + 1, col, orientation) in board.valid_walls:
                 filtered_walls.append(wall)
                 continue  # Prioritize walls that extend an existing structure
-
-            # Heuristic 3: Avoid unnecessary edge walls
-            if orientation == "horizontal" and (col == 0 or col == COLS - 2):
-                continue
-            if orientation == "vertical" and (row == 0 or row == ROWS - 2):
-                continue
-
         return filtered_walls
 
 

@@ -6,6 +6,8 @@ from quoridor.wall import Wall
 from quoridor.ai import AI
 from ui import render_main_menu, game_over_screen
 
+import time
+
 pygame.init()
 pygame.display.set_caption("Quoridor")
 
@@ -97,7 +99,7 @@ def main():
                 manager.draw_ui(WIN)
                 pygame.display.update()
 
-            
+
             # Get the best move the AI evaluated
             _, new_board, move = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
             thinking_text.hide()
@@ -133,7 +135,7 @@ def main():
             if play_again:
                 main()
             else:
-                run = False
+                exit()
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

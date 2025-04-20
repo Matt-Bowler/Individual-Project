@@ -77,3 +77,7 @@ def test_shortest_path_empty_board(board):
     assert len(path) > 0  # There should be a path available
     assert len(path) == ROWS  # The path should be the length of the board height
     assert path[0].x == black_piece.col and path[0].y == black_piece.row  # Start position should match the piece's position
+
+    board.place_wall(Wall(black_piece.row, black_piece.col, "horizontal"))
+    path = shortest_path(board.horizontal_walls, board.vertical_walls, black_piece)
+    assert len(path) == ROWS + 1

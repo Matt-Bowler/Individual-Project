@@ -1,7 +1,8 @@
 import pytest
 from quoridor.ai import AI 
 from quoridor.board import Board
-from quoridor.constants import BLACK, WHITE
+from quoridor.constants import BLACK, WHITE, ROWS, COLS
+from quoridor.wall import Wall
 
 @pytest.fixture
 def ai():
@@ -28,6 +29,7 @@ def test_filter_walls(ai, board):
 
     assert len(filtered_walls) > 0
     assert len(filtered_walls) < len(valid_walls) # Should filter out a majority of "improbable" walls
+    assert Wall(0, 0, "horizontal") not in filtered_walls # Edge wall should be filtered out
 
 def test_simulate_piece_move(ai, board):
     piece = board.get_piece_by_color(WHITE)
@@ -58,11 +60,17 @@ def test_simulate_wall(ai, board):
 
 
 def test_negamax(ai, board):
-    value, move = ai.negamax(board, 2, float("-inf"), float("inf"), WHITE)
+    value, move, action = ai.negamax(board, 2, float("-inf"), float("inf"), WHITE)
 
     assert move is not None
     assert isinstance(value, float)
     assert value != float("-inf")
+    assert isinstance(action, tuple) or isinstance(action, Wall)
+
+    if isinstance(action, Wall):
+        assert board.is_valid_wall(action)
+    if isinstance(action, tuple):
+        assert action in board.get_valid_moves(board.get_piece_by_color(WHITE))
 
 
 def test_partial_deepcopy(ai, board):

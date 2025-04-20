@@ -1,7 +1,7 @@
 from copy import deepcopy
 from quoridor.board import Board
 from quoridor.game import Game
-from quoridor.pathfinding import get_cached_path
+from quoridor.pathfinding import shortest_path
 from quoridor.ai import AI
 from quoridor.constants import BLACK, WHITE, ROWS
 
@@ -21,8 +21,8 @@ class TrainingBoard(Board):
         black_piece = self.get_piece_by_color(BLACK)
         opponent_piece = white_piece if color == BLACK else black_piece
 
-        white_shortest_path = get_cached_path(self, white_piece, self.horizontal_walls, self.vertical_walls)
-        black_shortest_path = get_cached_path(self, black_piece, self.horizontal_walls, self.vertical_walls)
+        white_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, white_piece)
+        black_shortest_path = shortest_path(self.horizontal_walls, self.vertical_walls, black_piece)
  
         if self.winner() == color:
             return float(10000)  
