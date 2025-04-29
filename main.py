@@ -20,6 +20,7 @@ manager = pygame_gui.UIManager((WIDTH, HEIGHT), "theme.json")
 progress_bar = pygame_gui.elements.UIProgressBar(pygame.Rect((WIDTH - 220, HEIGHT - 40, 200, 30)), 
                                                  manager, 
                                                  visible=False)
+                                                 
 thinking_text = pygame_gui.elements.UILabel(pygame.Rect((WIDTH - 220, HEIGHT - 70, 200, 30)), 
                                             "AI is thinking...", 
                                             manager, 
@@ -88,18 +89,17 @@ def main():
     while run:
         time_delta = clock.tick(FPS) / 1000.0
 
+        # Progress callback function to update the progress bar when AI is making a move
+        def update_progress(progress):
+            progress_bar.set_current_progress(progress)
+            manager.update(time_delta)
+            manager.draw_ui(WIN)
+            pygame.display.update()
+
         if game.turn == WHITE and white_is_ai:
             thinking_text.show()
             progress_bar.show()
-
-            # Progress callback function to update the progress bar when AI is making a move
-            def update_progress(progress):
-                progress_bar.set_current_progress(progress)
-                manager.update(time_delta)
-                manager.draw_ui(WIN)
-                pygame.display.update()
-
-
+            
             # Get the best move the AI evaluated
             _, new_board, move = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
             thinking_text.hide()
@@ -113,12 +113,6 @@ def main():
         if game.turn == BLACK and black_is_ai:
             progress_bar.show()
             thinking_text.show()
-
-            def update_progress(progress):
-                progress_bar.set_current_progress(progress)
-                manager.update(time_delta)
-                manager.draw_ui(WIN)
-                pygame.display.update()
 
             _, new_board, move = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), BLACK, progress_callback=update_progress)
             thinking_text.hide()
