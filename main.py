@@ -6,7 +6,6 @@ from quoridor.wall import Wall
 from quoridor.ai import AI
 from ui import render_main_menu, game_over_screen
 
-import time
 
 pygame.init()
 pygame.display.set_caption("Quoridor")
@@ -99,7 +98,7 @@ def main():
         if game.turn == WHITE and white_is_ai:
             thinking_text.show()
             progress_bar.show()
-            
+
             # Get the best move the AI evaluated
             _, new_board, move = ai.negamax(game.get_board(), ai.depth, float("-inf"), float("inf"), WHITE, progress_callback=update_progress)
             thinking_text.hide()
